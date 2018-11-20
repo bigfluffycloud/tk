@@ -1,0 +1,7 @@
+timeout 1
+default 0
+color light-blue/black light-cyan/blue
+
+title ZombieOS
+root (fd0)
+kernel /vmkern.gz

@@ -1,0 +1,23 @@
+To use this you need some stuff:
+	gcc
+	binutils
+	grub (grub-legacy)
+	mtools
+	qemu (bochs coming soon)
+
+if you get an error about cannot find /usr/lib/grub/i386-pc/...:
+	Edit .config to point to wherever your grub stages are:
+		Arch Linux: /usr/lib/grub/i386-pc
+
+-OR-
+	Use syslinux ;)
+
+Getting started:
+	Check out
+		git clone git://gitorious.org/zombie/kernel.git
+	Build
+		make floppy
+	Test
+		make qemu
+	Fix stuff ;)
+	Submit

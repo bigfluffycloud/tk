@@ -1,0 +1,4 @@
+sensor.accel=enable
+sensor.ambient=enable
+sensor.thermal=enable
+sensor.thermal.batt=enable

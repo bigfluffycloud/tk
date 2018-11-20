@@ -1,0 +1,17 @@
+# Presently we only support x86
+CF_ARCH=x86
+
+# Choices: grub, grub2, syslinux
+loader=syslinux
+
+# Kernel arguments (for diskn images)
+kern_args=
+
+# Uncomment to disable debugging (faster, but bugs are unfixable)
+#NDEBUG=y
+
+# Uncomment to disable strict compilation (usually safe)
+#NoWerror=y
+
+# Number of CPUs to emulate? Comment for Uniprocessor
+EMU_SMP_CPUS=2

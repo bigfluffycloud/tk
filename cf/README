@@ -1,0 +1,13 @@
+This directory contains common configs, any settings of the same key
+in the target configs will override this.
+
+If you add features, run make genconf-bootstrap to extract
+configuration defaults from the source tree. This
+is an experimental addon that may fail on some code.
+
+If so, please try to fix it and submit a brieff uniform diff.
+
+If you can't, at least explain how to reproduce and report it.
+Test it on another machine first if you can. Include platforms.
+
+Thanks!

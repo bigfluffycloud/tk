@@ -1,0 +1,48 @@
+#include <type.h>
+#include <machine/vga.h>
+struct	cons {
+  uint16_t	curs_x,			// cursor x
+                curs_y;			// cursor y
+  uint8_t	attr;			// text attributes
+  uint16_t	width,
+                height;
+  uint16_t	*buf;			// buffer ptr (0xb800 for cons0)
+};
+        
+// console text colours
+#define	MD_CONS_BLACK	0
+#define	MD_CONS_BLUE	1
+#define	MD_CONS_GREEN	2
+#define	MD_CONS_CYAN	3
+#define	MD_CONS_RED	4
+#define	MD_CONS_MAGENTA	5
+#define	MD_CONS_BROWN	6
+#define	MD_CONS_LTGREY	7
+#define	MD_CONS_GREY	8
+#define	MD_CONS_LTBLUE	9
+#define	MD_CONS_LTGREEN	10
+#define	MD_CONS_LTCYAN	11
+#define	MD_CONS_LTRED	12
+#define	MD_CONS_LTMAGENTA 13
+#define	MD_CONS_YELLOW	14
+#define	MD_CONS_WHITE	15
+#define	MD_COLOUR_PAIR(fg, bg)	((bg << 4) | (fg & 0x0f))
+
+// World-visible structure exposing virtual consoles
+extern struct cons cons;
+
+// Set colour pair
+static inline void cons_colour(uint8_t fg, uint8_t bg) {
+  cons.attr = MD_COLOUR_PAIR(fg, bg);
+}
+
+// Driver Interface
+extern void cons_init(void);
+
+// 'Drawing' stuff
+extern void cons_clear(void);
+extern void cons_put(const char c);
+extern void cons_write(const char *str);
+
+// Cursor Management
+extern void cons_curs_set(const int x, const int y);

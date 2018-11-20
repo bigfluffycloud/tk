@@ -1,0 +1,5 @@
+.config
+.obj/*
+bochsrc.txt
+bochsout.txt
+machine

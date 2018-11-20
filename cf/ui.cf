@@ -1,0 +1,2 @@
+; Set colour scheme automatically using brightness sensor [auto|{light|dark||...}]
+ui.contrast=auto
