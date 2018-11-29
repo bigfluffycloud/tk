@@ -1,6 +1,5 @@
 tk
 ==
-
 tk is a tiny kernel. It's designed to provide a very
 minimal base for Library OS / Exokernel experimentation on virtual machines.
 
