@@ -1,7 +1,5 @@
 kern_cflags += -I. -std=gnu99 -O2
-kern_cflags += -nostdinc -ffreestanding
-kern_cflags += -fstack-protector-all
-kern_cflags += -Wall -Wno-unused -pedantic
+kern_cflags += -nostdinc -ffreestanding -nostdlib -fno-pie -fno-pic
 
 ifeq ($(origin NDEBUG), undefined)
 kern_asflags += -gdwarf-2

@@ -1,8 +1,10 @@
 // stupid simple console driver ;)
+// TODO: Make this do double buffering, so scrolling can be nice and smooth?
+
 #include <type.h>
 #include <machine/asm.h>
 #include <cons.h>
-
+#include <core/ssp.h>
 struct cons cons;
 
 // <ESC>[x;yH or <ESC>[H (0,0) Position the cursor
