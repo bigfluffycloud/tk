@@ -18,6 +18,10 @@ ifeq (/usr/lib/syslinux/mboot.c32, $(wildcard /usr/lib/syslinux/mboot.c32))
 syslinux_dir := /usr/lib/syslinux
 endif
 
+ifeq (/usr/lib/syslinux/modules/bios/mboot.c32, $(wildcard /usr/lib/syslinux/modules/bios/mboot.c32))
+syslinux_dir = /usr/lib/syslinux/modules/bios
+endif
+
 floppy := .obj/${config}/floppy.img
 ${floppy}: ${gzkern}
 	sudo dd if=/dev/zero of=${floppy} bs=512 count=2880

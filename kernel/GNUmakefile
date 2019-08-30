@@ -1,5 +1,7 @@
 CC := gcc
 
+VERSION := "0.2.0-lite1"
+
 all: world
 
 # Configuration handling (XXX: Needs improved ;)

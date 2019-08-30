@@ -4,6 +4,9 @@ tk is a tiny kernel. It's designed to provide a very
 minimal base for Library OS / Exokernel experimentation on virtual machines.
 
 
+This is based on what I've been been able to recover of the original
+popcorn/tk kernel source. A few files had to be remvoed as their license
+forbids their distribution.
 
 To use this mess, you need some things:
 	gcc

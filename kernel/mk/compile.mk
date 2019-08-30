@@ -1,6 +1,6 @@
 kern_cflags += -I. -std=gnu99 -O2
 kern_cflags += -nostdinc -ffreestanding -nostdlib -fno-pie -fno-pic
-
+kern_cflags += -DTK_VERSION="\"${VERSION}\""
 ifeq ($(origin NDEBUG), undefined)
 kern_asflags += -gdwarf-2
 kern_cflags += -MD -ggdb

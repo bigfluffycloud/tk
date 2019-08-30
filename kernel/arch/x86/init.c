@@ -6,7 +6,11 @@
 int	md_init(void) {
   cons_init();
   cons_colour(CONS_LTGREY, CONS_BLACK);
-  cons_write("popcorn OS/x86 starting\n");
+  cons_write("tk version ");
+  cons_colour(CONS_RED, CONS_BLACK);
+  cons_write(TK_VERSION);
+  cons_colour(CONS_LTGREY, CONS_BLACK);
+  cons_write(" starting\n");
   cons_colour(CONS_YELLOW, CONS_BLACK);
   cons_write("\n[");
   cons_colour(CONS_CYAN, CONS_BLACK);
