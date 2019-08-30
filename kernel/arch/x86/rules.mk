@@ -9,6 +9,7 @@ arch_objs += except.o
 arch_objs += gdt.o
 arch_objs += idt.o
 arch_objs += init.o
+#arch_objs += idler.o
 arch_objs += isr.o
 arch_objs += locore.o
 arch_objs += mb_entry.o

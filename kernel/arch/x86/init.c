@@ -35,6 +35,9 @@ int	md_init(void) {
   // Calculate speed
   // lapic_calculate_bus_speed();
 //  printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
+
+//   md_vmm_init();
+//   md_paging_init();
 //  __asm__("int $0x80");
   return 0;
 }

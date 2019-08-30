@@ -26,8 +26,15 @@ extern void cons_printf(const char *, ...);
 extern void cons_printf_at(int x, int y, const char *fmt, ...);
 
 typedef struct tty {
+      // Console State
       uint32_t	width;
       uint32_t	height;
+      uint32_t  curs_x;
+      uint32_t  curs_y;
+      uint32_t  bgcolor;
+      uint32_t  fgcolor;
+
+      // Driver hooks
 //      Console *driver;
       void (*init)();
       void (*fini)();
