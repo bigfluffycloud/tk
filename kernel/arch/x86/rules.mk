@@ -4,7 +4,7 @@ kern_cflags += -m32
 
 # multiboot.o *MUST* come first!
 arch_objs += multiboot.o
-arch_objs += cons.o
+arch_objs += cons_vga.o
 arch_objs += except.o
 arch_objs += gdt.o
 arch_objs += idt.o
