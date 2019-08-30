@@ -21,3 +21,4 @@ static inline uint16_t md_inw(uint16_t port) {
 
   return ret;
 }
+

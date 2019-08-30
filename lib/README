@@ -1,0 +1,3 @@
+We include official musl C library source as a git submodule.
+
+This is our official C library and will be linked to each instance

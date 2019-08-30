@@ -3,7 +3,7 @@
 
 #include <type.h>
 #include <machine/asm.h>
-#include <cons.h>
+#include <core/cons.h>
 #include <core/ssp.h>
 struct cons cons;
 

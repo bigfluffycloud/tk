@@ -4,15 +4,9 @@
 #include <machine/reboot.h>
 
 void	init(void) {
-  cons_colour(CONS_YELLOW, CONS_BLACK);
-  cons_write("\n[");
-  cons_colour(CONS_CYAN, CONS_BLACK);
-  cons_write("global");
-  cons_colour(CONS_YELLOW, CONS_BLACK);
-  cons_write("]\n");
   __stack_chkguard_setup();
 
-  cons_colour(CONS_LTGREY, CONS_BLACK);
-  cons_write("\n");
+  cons_colour(CONS_RED, CONS_BLACK);
+  cons_write("No init provided. Shutting down.\n");
   md_halt();
 }

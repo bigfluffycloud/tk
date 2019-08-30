@@ -15,6 +15,8 @@ arch_objs += mb_entry.o
 #arch_objs += mmu.o
 arch_objs += reboot.o
 arch_objs += pic.o
+arch_objs += pit.o
+arch_objs += tss.o
 arch_objs += vga.o
 
 .obj/${config}/arch/x86/%.o:arch/x86/%.asm

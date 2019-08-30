@@ -10,6 +10,7 @@ include mk/config.mk
 # Subdirectories
 include arch/rules.mk
 include core/rules.mk
+include crypto/rules.mk
 include lib/rules.mk
 
 # Utilities

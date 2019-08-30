@@ -23,8 +23,10 @@ void __stack_chkguard_setup(void) {
   cons_colour(CONS_LTGREY, CONS_BLACK);
   cons_write(" kernel stack guard");
 
-//  arc4rand(guard, sizeof(guard), 0);
   memset(guard, sizeof(guard), 0);
+  // XXX: Fix arc4rand!
+//  arc4rand(guard, sizeof(guard), 0);
+
   for (i = 0; i < __arraycount(guard); i++)
      __stack_chk_guard[i] = guard[i];
 

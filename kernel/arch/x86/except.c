@@ -41,6 +41,9 @@ void	md_stack_dump(uint32_t MaxFrames) {
    //  ebp of calling function (pointed to by current ebp)
    uint32_t *ebp = &MaxFrames - 2;
 
+   cons_colour(CONS_YELLOW, CONS_BLUE);
+   cons_clear();
+   cons_write("Task Crashed :(\n\n");
    cons_write("Stack trace:\n");
 
    for (uint32_t frame = 0; frame < MaxFrames; ++frame) {
@@ -53,8 +56,6 @@ void	md_stack_dump(uint32_t MaxFrames) {
         // Unwind to previous stack frame
         ebp = (uint32_t *)(ebp[0]);
         uint32_t *arguments = &ebp[2];
-
-// XXX: add cons_printf() stuff asap
-//        cons_printf("  0x%lu     \n", eip);
+        cons_printf("  0x%lu     \n", eip);
     }
 }
