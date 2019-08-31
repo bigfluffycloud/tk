@@ -15,9 +15,16 @@
 .long	FLAGS
 .long	CHECKSUM
 
+// Allocate 16kb stack (downward growing)
+.section .stack
+.align 16
+stack_bottom:
+.skip 16384 # 16 KiB
+stack_top:
+ 
 _entry:
 	cli
-	mov	$(stack + STACKSIZE), %esp
+	mov	$stack_top, %esp
 	pushl	$0
 	popf
 	pushl	%eax			// multiboot magic number
@@ -38,7 +45,7 @@ _entry:
 	// Enter low-power state and hang
 	call	md_halt
 
-.comm	stack, STACKSIZE, 32		// reserve stack on quadword boundary
-
 __exit_str:
 	.asciz	"Goodbye!\n"
+
+#.size _start, . -  _start

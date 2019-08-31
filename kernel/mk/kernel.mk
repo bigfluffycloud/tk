@@ -6,6 +6,12 @@ ${vmkern}: prebuild ${kern_objs}
 	@echo "*** Linking ${vmkern} ..."
 	${LD} ${kern_ldflags} -o $@ ${kern_objs}
 
+	@if grub-file --is-x86-multiboot $@; then \
+  		echo "Multiboot image OK"; \
+	else \
+		echo "NOT multiboot"; \
+	fi
+
 prebuild:
 	@echo "*** Preparing target tree..."
 	mkdir -p ${obj_dirs}

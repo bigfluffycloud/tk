@@ -44,6 +44,7 @@ ifeq (${loader}, grub)
 	echo "setup (fd0)" >> .obj/${config}/grub.script
 	sudo grub --no-floppy --device-map=.obj/${config}/grub.map < .obj/${config}/grub.script
 endif
+	sudo chown $(shell whoami) ${floppy}
 
 ifneq ($(origin EMU_SMP_CPUS), undefined)
 qemu_opts += -smp ${EMU_SMP_CPUS}

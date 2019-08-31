@@ -12,6 +12,7 @@ include arch/rules.mk
 include core/rules.mk
 include crypto/rules.mk
 include lib/rules.mk
+#include net/rules.mk
 
 # Utilities
 include mk/compile.mk

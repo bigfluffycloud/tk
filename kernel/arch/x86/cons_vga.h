@@ -26,7 +26,9 @@ struct	cons {
 #define	MD_CONS_LTMAGENTA 13
 #define	MD_CONS_YELLOW	14
 #define	MD_CONS_WHITE	15
-#define	MD_COLOUR_PAIR(fg, bg)	((bg << 4) | (fg & 0x0f))
+//#define	MD_COLOUR_PAIR(fg, bg)	((bg << 4) | (fg & 0x0f))
+// from osdev wiki
+#define	MD_COLOUR_PAIR(bg, fg) (fg | bg << 4)
 
 // World-visible structure exposing virtual consoles
 extern struct cons cons;
