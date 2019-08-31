@@ -1,3 +1,6 @@
+#if	!defined(__core_cons_h)
+#define	__core_cons_h
+
 #include <machine/cons.h>
 #include <stdarg.h>
 #include <type.h>
@@ -42,3 +45,5 @@ typedef struct tty {
       void (*putc)(char);
       void (*clear)(void);
 } TTY;
+
+#endif	// !defined(__core_cons_h)
