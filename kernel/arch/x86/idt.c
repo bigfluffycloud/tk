@@ -11,6 +11,7 @@ static md_idt_entry md_idt_entries[256];
 static md_idt_ptr md_idtptr;
 
 int md_idt_set(uint32_t irq,  uint32_t hndlr, uint16_t flags, uint16_t sel) {
+   // XXX: no support for IRQs > 255 on x86{,_64} - we should return a proper error code here
    if (irq > 255)
       return -1;
 
@@ -36,7 +37,7 @@ void md_idt_init(void) {
   memset(&md_idt_entries, 0, sizeof(md_idt_entry) * 256);
   cons_colour(CONS_YELLOW, CONS_BLACK);
 
-  // populate IDT
+  // populate IDT with pointers to assembly hooks
   md_idt_set(0, (uint32_t)md_isr_0, 0x08, 0x8e);
   md_idt_set(1, (uint32_t)md_isr_1, 0x08, 0x8e);
   md_idt_set(2, (uint32_t)md_isr_2, 0x08, 0x8e);
@@ -73,6 +74,7 @@ void md_idt_init(void) {
   md_idt_set(96, (uint32_t)md_isr_96, 0x08, 0x8e);
   md_idt_set(128, (uint32_t)md_isr_128, 0x08, 0x8e);
   md_idt_flush((uint32_t)&md_idtptr);
+
   cons_colour(CONS_GREEN, CONS_BLACK);
   cons_write("\t\t\t\tOK\n");
 }

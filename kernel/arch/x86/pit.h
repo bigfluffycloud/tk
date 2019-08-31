@@ -34,8 +34,8 @@
 #include <type.h>
 
 extern void set_task(uint8_t i);
-extern void enable_task();
-
-extern void md_pit_init();
+extern void enable_task(void);
+extern void md_pit_init(void);
+extern void md_pit_tick(void);
 
 #endif

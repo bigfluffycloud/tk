@@ -2,6 +2,9 @@
 #include <machine/idt.h>
 #include <machine/pic.h>
 #include <machine/pit.h>
+#include <machine/mmu.h>
+#include <machine/vmm.h>
+#include <machine/task.h>
 #include <cons.h>
 
 int	md_init(void) {
@@ -36,8 +39,9 @@ int	md_init(void) {
   // lapic_calculate_bus_speed();
 //  printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
 
-//   md_vmm_init();
-//   md_paging_init();
+   md_mmu_paging_init();
+   md_vmm_init();
+   md_task_init();
 //  __asm__("int $0x80");
   return 0;
 }

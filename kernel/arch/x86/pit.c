@@ -9,6 +9,7 @@ static uint8_t last_task = 0;
 void set_task(uint8_t i) {
    if (!last_task)
       return;
+
    task = i;
 }
 
@@ -17,7 +18,18 @@ void enable_task(void) {
    task = 1;
 }
 
-void pit_irq(void) {
+// Crappy but at least lets us see timers are workin
+static int tick_phase;
+static char ticks[4] = { '.', ',', ':', '*' };
+
+void md_pit_tick(void) {
+   // Show a changing character at the top-right corner of console
+   if (tick_phase == 4)
+      tick_phase = 0;
+   cons.buf[cons.width] = ticks[tick_phase];
+   tick_phase++;
+
+   // try to switch tasks
    if (!task) {
       asm volatile("add $0x1c, %esp");
       asm volatile("pusha");
@@ -69,7 +81,6 @@ void md_pit_init(void) {
     cons_write("*");
     cons_colour(CONS_LTGREY, CONS_BLACK);
     cons_write(" pit: irq#0 (int#32) is now PIT_IRQ");
-    //set_int(32, (uint32_t)pit_irq);
     pit_start_counter( 200, PIT_OCW_COUNTER_0, PIT_OCW_MODE_SQUAREWAVEGEN);
     cons_colour(CONS_GREEN, CONS_BLACK);
     cons_write("\tOK\n");

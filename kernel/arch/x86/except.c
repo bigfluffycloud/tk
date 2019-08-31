@@ -1,5 +1,6 @@
 // Processor exceptions and stack traces
 #include <machine/except.h>
+#include <machine/pit.h>
 #include <cons.h>
 
 static void md_null_int(void) {
@@ -26,7 +27,8 @@ md_int_map md_int_tbl[] = {
   { 0x10, 0x0,			"Math fault", 	&md_null_int },
   { 0x11, INT_FAULT,		"Alignment",	&md_null_int },
   { 0X12, INT_ABORT,		"Machine Check", &md_null_int },
-  { 0x13, INT_FAULT,		"SIMD FP",	&md_null_int }
+  { 0x13, INT_FAULT,		"SIMD FP",	&md_null_int },
+  { 0x20, 0x0,			"Timer Interrupt", &md_pit_tick },
 };
 
 void	md_isr_c(md_trap_frame frame) {

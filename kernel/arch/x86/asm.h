@@ -23,3 +23,7 @@ static inline uint32_t md_inl(uint16_t port) {
   asm volatile("in %d0, %w1" : "=a"(ret) : "dN"(port));
   return ret;
 }
+
+static inline void md_flush_tlb_single(unsigned long addr) {
+   asm volatile("invlpg (%0)" ::"r" (addr) : "memory");
+}
