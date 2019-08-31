@@ -1,3 +1,5 @@
+#include <type.h>
+#include <machine/asm.h>
 #include <machine/gdt.h>
 #include <machine/idt.h>
 #include <machine/pic.h>
@@ -32,9 +34,8 @@ int	md_init(void) {
   // Setup global descriptor table
   md_gdt_init();
   md_idt_init();
-  // Enable interrupts
-  // Start the timer interrupt
   md_pit_init();
+  md_enable_interrupts();
   // Calculate speed
   // lapic_calculate_bus_speed();
 //  printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);

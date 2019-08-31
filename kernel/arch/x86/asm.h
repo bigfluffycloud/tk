@@ -1,3 +1,4 @@
+#include <type.h>
 static inline void	md_outb(uint16_t port, uint8_t val) {
   asm volatile ("outb %1, %0" :: "dN" (port), "a" (val));
 }
@@ -26,4 +27,12 @@ static inline uint32_t md_inl(uint16_t port) {
 
 static inline void md_flush_tlb_single(unsigned long addr) {
    asm volatile("invlpg (%0)" ::"r" (addr) : "memory");
+}
+
+static inline void md_enable_interrupts(void) {
+   asm volatile("sti");
+}
+
+static inline void md_disable_interrupts(void) {
+   asm volatile("cli");
 }

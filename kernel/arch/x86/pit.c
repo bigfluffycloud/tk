@@ -24,7 +24,7 @@ static char ticks[4] = { '.', ',', ':', '*' };
 
 void md_pit_tick(void) {
    // Show a changing character at the top-right corner of console
-   if (tick_phase == 4)
+   if (tick_phase == 5)
       tick_phase = 0;
    cons.buf[cons.width] = ticks[tick_phase];
    tick_phase++;
@@ -63,6 +63,7 @@ static void pit_start_counter(uint32_t freq, uint8_t counter, uint8_t mode) {
        return;
 
     cons_printf("Starting counter %d with frequency %dHz\n", counter/0x40, freq);
+
     // send ocw
     uint16_t divisor = (uint16_t)(1193181 / (uint16_t)freq);
     uint8_t ocw = 0;

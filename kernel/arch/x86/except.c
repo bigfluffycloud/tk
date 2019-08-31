@@ -33,6 +33,21 @@ md_int_map md_int_tbl[] = {
 
 void	md_isr_c(md_trap_frame frame) {
   cons_write("Got interrupt");
+  // Is a handler defined?
+  if (md_int_tbl[frame.int_no].hndlr != md_null_int) {
+     // Does the handler have arguments?
+     if (md_int_tbl[frame.int_no].flags == 0x0) {
+        md_int_tbl[frame.int_no].hndlr();
+     } else if (md_int_tbl[frame.int_no].flags == INT_FAULT) {
+        md_int_tbl[frame.int_no].hndlr(frame);
+        // switch(frame.int_no) raise_signal();
+        // abort_task():
+     } else if (md_int_tbl[frame.int_no].flags == INT_ABORT) {
+        md_int_tbl[frame.int_no].hndlr(frame);
+        // switch(frame.int_no) raise_signal();
+        // abort_task():
+     }
+  }
 }
 
 void	md_stack_dump(uint32_t MaxFrames) {
