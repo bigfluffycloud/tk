@@ -20,6 +20,6 @@ static inline uint16_t md_inw(uint16_t port) {
 
 static inline uint32_t md_inl(uint16_t port) {
   uint32_t ret;
-  asm volatile("in %d0, %w1" : "=a"(ret) : "dN"(port))
+  asm volatile("in %d0, %w1" : "=a"(ret) : "dN"(port));
   return ret;
 }
