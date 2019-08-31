@@ -1,10 +1,13 @@
+kern_cpp_objs += $($CC ${kern_cflags} -print-file-name=crtbegin.o)
+kern_cpp_objs += $($CC ${kern_cflags} -print-file-name=crtend.o)
+
 ${gzkern}: ${vmkern}
 	@echo "*** Compressing kernel image ${gzkern}..."
 	cat $< | gzip -9 > $@
 
 ${vmkern}: prebuild ${kern_objs}
 	@echo "*** Linking ${vmkern} ..."
-	${LD} ${kern_ldflags} -o $@ ${kern_objs}
+	${LD} ${kern_ldflags} -o $@ ${kern_objs} ${kern_cpp_objs}
 
 	@if grub-file --is-x86-multiboot $@; then \
   		echo "Multiboot image OK"; \

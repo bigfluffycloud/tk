@@ -1,4 +1,7 @@
-floppy: .obj/${config}/floppy.img 
+floppy := .obj/${config}/floppy.img
+floppy: ${floppy}
+cdrom := .obj/${config}/cdrom.img
+cdrom: ${cdrom}
 
 ifeq (${loader}, grub)
 ifeq (/usr/share/grub/stage1, $(wildcard /usr/share/grub/stage1))
@@ -22,18 +25,17 @@ ifeq (/usr/lib/syslinux/modules/bios/mboot.c32, $(wildcard /usr/lib/syslinux/mod
 syslinux_dir = /usr/lib/syslinux/modules/bios
 endif
 
-floppy := .obj/${config}/floppy.img
 ${floppy}: ${gzkern}
 	sudo dd if=/dev/zero of=${floppy} bs=512 count=2880
 	sudo mkfs.vfat ${floppy}
 	sudo mmd -i ${floppy} boot
-	sudo mcopy -i ${floppy} ${gzkern} ::
+	sudo mcopy -n -i ${floppy} ${gzkern} ::
 ifeq (${loader}, syslinux)
 	sudo syslinux ${floppy}
 	sudo mcopy -n -i ${floppy} ${syslinux_dir}/*.c32 ::
 	echo "TIMEOUT 1" > .obj/${config}/syslinux.cfg
 	echo "DEFAULT mboot.c32 vmkern.gz ${kern_args}" >> .obj/${config}/syslinux.cfg
-	sudo mcopy -i ${floppy} .obj/${config}/syslinux.cfg ::
+	sudo mcopy -n -i ${floppy} .obj/${config}/syslinux.cfg ::
 endif
 ifeq (${loader}, grub)
 	sudo mmd -i ${floppy} boot/grub
@@ -46,6 +48,12 @@ ifeq (${loader}, grub)
 endif
 	sudo chown $(shell whoami) ${floppy}
 
+${cdrom}:
+	mkdir -p .obj/${config}/boot/
+	cp .obj/${config}/vmkern .obj/${config}/boot/
+	cp machine/grub-cd.cfg .obj/${config}/boot/grub.cfg
+	(cd .obj/${config}; grub-mkrescue -o $(shell basename ${cdrom}) boot/)
+
 ifneq ($(origin EMU_SMP_CPUS), undefined)
 qemu_opts += -smp ${EMU_SMP_CPUS}
 endif
@@ -55,7 +63,7 @@ qemu_opts += -gdb tcp::${qemu_gdb_port}
 endif
 #qemu_opts += -echr 2 -nographic -curses -serial mon:stdio
 
-qemu: floppy
+qemu-floppy: floppy
 ifneq (x${qemu_gdb_port}, x)
 	@echo "Using tcp::${qemu_gdb_port} for gdb port"
 endif
@@ -71,3 +79,8 @@ bochsrc.txt:
 	echo "log: bochsout.txt" >> bochsrc.txt
 	echo "mouse: enabled=0" >> bochsrc.txt
 	echo "clock: sync=realtime" >> bochsrc.txt
+
+qemu-cd: cdrom
+	qemu-system-i386 -cdrom ${cdrom}
+	
+qemu: qemu-floppy

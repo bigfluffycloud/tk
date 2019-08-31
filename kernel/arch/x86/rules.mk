@@ -22,6 +22,8 @@ arch_objs += task.o
 arch_objs += tss.o
 arch_objs += vga.o
 arch_objs += vmm.o
+arch_objs += crti.o
+arch_objs += crtn.o
 
 .obj/${config}/arch/x86/%.o:arch/x86/%.asm
 	nasm -felf -o $@ $<

@@ -1,4 +1,5 @@
 #include <type.h>
+#include <stdbool.h>
 static inline void	md_outb(uint16_t port, uint8_t val) {
   asm volatile ("outb %1, %0" :: "dN" (port), "a" (val));
 }
@@ -103,11 +104,11 @@ static inline void irqrestore(unsigned long flags) {
     asm ("push %0\n\tpopf" : : "rm"(flags) : "memory","cc");
 }
  
-static void intended_usage(void) {
-    unsigned long f = save_irqdisable();
-    do_whatever_without_irqs();
-    irqrestore(f);
-}
+//static void intended_usage(void) {
+//    unsigned long f = save_irqdisable();
+//    do_whatever_without_irqs();
+//    irqrestore(f);
+//}
 
 static inline void lidt(void* base, uint16_t size) {
     // This function works in 32 and 64bit mode
@@ -124,7 +125,7 @@ static inline void cpuid(int code, uint32_t* a, uint32_t* d) {
     asm volatile ( "cpuid" : "=a"(*a), "=d"(*d) : "0"(code) : "ebx", "ecx" );
 }
 
-#if	defind(CPU_X86)
+#if	defined(CPU_X86)
 static inline uint64_t md_rdtsc(void) {
     uint64_t ret;
     asm volatile ( "rdtsc" : "=A"(ret) );
