@@ -1,6 +1,7 @@
 core_objs += init.o
 core_objs += ssp.o
 core_objs += cons.o
+core_objs += task.o
 
 obj_dirs += .obj/${config}/core
 kern_objs += $(foreach x, ${core_objs}, .obj/${config}/core/${x})
