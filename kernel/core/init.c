@@ -3,7 +3,8 @@
 #include <cons.h>
 #include <core/vmm.h>
 #include <machine/reboot.h>
-
+#include <config.h>
+#include <core/configtest.h>
 void	init(void) {
   vmm_init();
   __stack_chkguard_setup();

@@ -2,9 +2,10 @@
 #include <machine/asm.h>
 #include <machine/gdt.h>
 #include <machine/idt.h>
+#include <machine/mmu.h>
 #include <machine/pic.h>
 #include <machine/pit.h>
-#include <machine/mmu.h>
+#include <machine/rtc.h>
 #include <machine/vmm.h>
 #include <machine/task.h>
 #include <cons.h>
@@ -42,6 +43,7 @@ int	md_init(void) {
 
    md_mmu_paging_init();
    md_vmm_init();
+   md_rtc_timer_init();
    md_task_init();
 //  __asm__("int $0x80");
   return 0;
