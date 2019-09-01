@@ -1,6 +1,7 @@
 #include <sys/types.h>
 #include <machine/asm.h>
 #include <machine/gdt.h>
+#include <machine/hpet.h>
 #include <machine/idt.h>
 #include <machine/mmu.h>
 #include <machine/pic.h>

@@ -35,3 +35,9 @@ void md_rtc_timer_init(void) {
     // XXX: register IRQ 8 handler
     md_enable_interrupts();
 }
+
+void md_interrupt_rtc(void) {
+     // Read from register C so that future rtc interrupts will occur...
+     md_outb(IO_RTC_REGISTER, 0x0c);
+     md_inb(IO_RTC_DATA);
+}

@@ -32,10 +32,10 @@ void cons_curs_disable(void) {
 // Get cursor position
 uint16_t cons_curs_get(void) {
     uint16_t pos = 0;
-    outb(0x3D4, 0x0F);
-    pos |= inb(0x3D5);
-    outb(0x3D4, 0x0E);
-    pos |= ((uint16_t)inb(0x3D5)) << 8;
+    md_outb(0x3D4, 0x0F);
+    pos |= md_inb(0x3D5);
+    md_outb(0x3D4, 0x0E);
+    pos |= ((uint16_t)md_inb(0x3D5)) << 8;
     return pos;
 }
 
