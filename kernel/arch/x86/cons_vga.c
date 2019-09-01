@@ -7,10 +7,8 @@
 #include <core/cons.h>
 #include <core/ssp.h>
 struct cons cons;
-
  
-enum video_type
-{
+enum video_type {
     VIDEO_TYPE_NONE = 0x00,
     VIDEO_TYPE_COLOUR = 0x20,
     VIDEO_TYPE_MONOCHROME = 0x30,
@@ -24,7 +22,6 @@ uint16_t cons_detect_bios_area_hardware(void) {
 enum video_type cons_get_bios_area_video_type(void) {
     return (enum video_type) (cons_detect_bios_area_hardware() & 0x30);
 }
-
 
 void con_curs_enable(uint8_t cursor_start, uint8_t cursor_end) {
     md_outb(0x3D4, 0x0A);
