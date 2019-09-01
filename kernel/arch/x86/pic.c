@@ -1,10 +1,8 @@
 #include <sys/types.h>
+#include <sys/stddef.h>
 #include <machine/asm.h>
+#include <machine/pic.h>
 #include <cons.h>
-#define	IO_PIC1	0x20		// master PIC
-#define	IO_PIC2	0xa0		// slave PIC
-#define	IRQ_OFFSET 0x20		// Offset of IRQ to INT mapping (32)
-#define	CASCADE	2		// IRQ for slave
 
 // Initially we mask off all IRQs *except* cascade (irq 2)
 static uint16_t irqmask = 0xFFFF & ~(1 << CASCADE);
@@ -21,6 +19,7 @@ void md_pic_init(void) {
   cons_write("*");
   cons_colour(CONS_LTGREY, CONS_BLACK);
   cons_write(" remap interrupts (8259)");
+
   // Configure the 8259 operation mode
   md_outb(IO_PIC1+1, 0xff);		// mask all ints on master
   md_outb(IO_PIC2+1, 0xff);		// mask all ints on slave
@@ -71,4 +70,12 @@ void	md_pic_eoi(const uint8_t irq) {
      md_outb(IO_PIC2, 0x20);
 
   md_outb(IO_PIC1, 0x20);
+}
+
+void md_nmi_enable(void) {
+     md_outb(0x70, md_inb(0x70) & 0x7f);
+}
+
+void md_nmi_disable(void) {
+     md_outb(0x70, md_inb(0x70) | 0x80);
 }
