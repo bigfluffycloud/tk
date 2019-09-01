@@ -1,12 +1,16 @@
-#include <type.h>
+#include <sys/types.h>
 #include <string.h>
 
-void *memmove(void *dest, const void *src, size_t n) {
-  char	*t_dst = dest;
-  const char *t_src = src;
+void *memmove(void* dstptr, const void* srcptr, size_t size) {
+	unsigned char* dst = (unsigned char*) dstptr;
+	const unsigned char* src = (const unsigned char*) srcptr;
 
-  while (n-- > 0)
-    *t_dst++ = *t_src++;
-
-  return t_dst;
+	if (dst < src) {
+		for (size_t i = 0; i < size; i++)
+			dst[i] = src[i];
+	} else {
+		for (size_t i = size; i != 0; i--)
+			dst[i-1] = src[i-1];
+	}
+	return dstptr;
 }

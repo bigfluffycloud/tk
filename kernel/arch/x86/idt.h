@@ -1,7 +1,7 @@
 #if	!defined(__machine_idt_h)
 #define	__machine_idt_h
 
-#include <type.h>
+#include <sys/types.h>
 
 struct md_idt_entry {
   uint16_t	base_low;	// lower 16 bits of ISR

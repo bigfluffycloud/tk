@@ -29,7 +29,7 @@
  *	@(#)random.c	8.1 (Berkeley) 6/10/93
  */
 
-#include <type.h>
+#include <sys/types.h>
 #include <stdlib.h>
 #define NSHUFF 50       /* to drop some "seed -> 1st value" linearity */
 

@@ -1,4 +1,4 @@
-#include <type.h>
+#include <sys/types.h>
 #include <machine/asm.h>
 #include <machine/gdt.h>
 #include <machine/idt.h>

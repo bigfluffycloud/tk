@@ -31,7 +31,7 @@
 #define PIT_OCW_COUNTER_1 0x40 //01000000
 #define PIT_OCW_COUNTER_2 0x80 //10000000
 
-#include <type.h>
+#include <sys/types.h>
 
 extern void set_task(uint8_t i);
 extern void enable_task(void);

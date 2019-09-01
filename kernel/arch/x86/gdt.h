@@ -1,6 +1,6 @@
 #if	!defined(__machine_gdt_h)
 #define	__machine_gdt_h
-#include <type.h>
+#include <sys/types.h>
 
 struct	md_gdt_entry {
   uint16_t	limit_low;	// lower 16 bits of limit

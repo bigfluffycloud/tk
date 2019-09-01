@@ -1,4 +1,5 @@
-#include <type.h>
+#include <sys/_null.h>
+#include <sys/types.h>
 #include <machine/asm.h>
 #include <machine/mmu.h>
 #include <cons.h>

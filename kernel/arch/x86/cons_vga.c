@@ -1,11 +1,42 @@
 // stupid simple console driver ;)
 // TODO: Make this do double buffering, so scrolling can be nice and smooth?
 
-#include <type.h>
+#include <sys/types.h>
+#include <sys/stdint.h>
 #include <machine/asm.h>
 #include <core/cons.h>
 #include <core/ssp.h>
 struct cons cons;
+
+ 
+enum video_type
+{
+    VIDEO_TYPE_NONE = 0x00,
+    VIDEO_TYPE_COLOUR = 0x20,
+    VIDEO_TYPE_MONOCHROME = 0x30,
+};
+ 
+uint16_t cons_detect_bios_area_hardware(void) {
+    const uint16_t* bda_detected_hardware_ptr = (const uint16_t*) 0x410;
+    return *bda_detected_hardware_ptr;
+}
+ 
+enum video_type cons_get_bios_area_video_type(void) {
+    return (enum video_type) (cons_detect_bios_area_hardware() & 0x30);
+}
+
+
+void con_curs_enable(uint8_t cursor_start, uint8_t cursor_end) {
+    md_outb(0x3D4, 0x0A);
+    md_outb(0x3D5, (md_inb(0x3D5) & 0xC0) | cursor_start);
+    md_outb(0x3D4, 0x0B);
+    md_outb(0x3D5, (md_inb(0x3D5) & 0xE0) | cursor_end);
+}
+
+void cons_disable_cursor(void) {
+    md_outb(0x3D4, 0x0A);
+    md_outb(0x3D5, 0x20);
+}
 
 // <ESC>[x;yH or <ESC>[H (0,0) Position the cursor
 void	cons_curs_set(const int x, const int y) {

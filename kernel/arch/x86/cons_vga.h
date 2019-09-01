@@ -1,7 +1,7 @@
 #if	!defined(__machine_cons_vga_h)
 #define	__machine_cons_vga_h
 
-#include <type.h>
+#include <sys/types.h>
 #include <machine/vga.h>
 struct	cons {
   uint16_t	curs_x,			// cursor x
@@ -51,5 +51,7 @@ extern void cons_write(const char *str);
 
 // Cursor Management
 extern void cons_curs_set(const int x, const int y);
+extern void con_curs_enable(uint8_t cursor_start, uint8_t cursor_end);
+extern void cons_disable_cursor(void);
 
 #endif	// !defined(__machine_cons_vga_h)

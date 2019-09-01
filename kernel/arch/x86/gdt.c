@@ -1,4 +1,4 @@
-#include <type.h>
+#include <sys/types.h>
 #include <cons.h>
 #include <machine/gdt.h>
 md_gdt_entry md_gdt_entries[5];

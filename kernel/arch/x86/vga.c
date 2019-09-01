@@ -1,4 +1,4 @@
-#include <type.h>
+#include <sys/types.h>
 #include <machine/cons.h>
 #include <machine/vga.h>
 #include <machine/font.h>

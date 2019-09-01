@@ -1,18 +1,16 @@
 #if	!defined(__string_h)
 #define	__string_h
-#include <type.h>
+#include <sys/types.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-static inline size_t strlen(const char *s) {
-  size_t n;
-
-  for (n = 0; s[n]; n++)
-     ;
-
-  return n;
+__inline__ size_t strlen(const char* str) {
+	size_t len = 0;
+	while (str[len])
+		len++;
+	return len;
 }
 
 extern char *strncpy(char *dest, const char *src, size_t n);

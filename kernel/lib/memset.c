@@ -1,11 +1,10 @@
-#include <type.h>
+#include <sys/types.h>
 #include <string.h>
 
-void *memset(void *dest, const uint8_t val, size_t n) {
-    register unsigned char *ptr = (unsigned char *)dest;
+void *memset(void* bufptr, const uint8_t value, size_t size) {
+     register unsigned char* buf = (unsigned char*) bufptr;
 
-    while (n-- > 0)
-       *ptr++ = val;
-
-    return dest;
+     for (size_t i = 0; i < size; i++)
+        buf[i] = (unsigned char) value;
+     return bufptr;
 }

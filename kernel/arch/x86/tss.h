@@ -1,4 +1,4 @@
-#include <type.h>
+#include <sys/types.h>
 
 struct md_tss {
     uint16_t	back_link, :16;

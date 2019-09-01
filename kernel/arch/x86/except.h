@@ -1,6 +1,6 @@
 #if	!defined(__machine_except_h)
 #define	__machine_except_h
-#include <type.h>
+#include <sys/types.h>
 struct md_int_map {
   int	num;
   int	flags;

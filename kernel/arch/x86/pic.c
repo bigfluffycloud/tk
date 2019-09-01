@@ -1,4 +1,4 @@
-#include <type.h>
+#include <sys/types.h>
 #include <machine/asm.h>
 #include <cons.h>
 #define	IO_PIC1	0x20		// master PIC

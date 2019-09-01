@@ -1,6 +1,6 @@
 #include <machine/reboot.h>
 #include <cons.h>
-#include <type.h>
+#include <sys/types.h>
 #include <stdlib.h>
 #include <string.h>
 #include <lib/arc4random.h>

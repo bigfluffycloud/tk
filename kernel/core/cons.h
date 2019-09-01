@@ -3,7 +3,7 @@
 
 #include <machine/cons.h>
 #include <stdarg.h>
-#include <type.h>
+#include <sys/types.h>
 #define	CONS_BLACK	MD_CONS_BLACK
 #define	CONS_BLUE	MD_CONS_BLUE
 #define	CONS_GREEN	MD_CONS_GREEN

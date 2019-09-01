@@ -1,4 +1,4 @@
-#include <type.h>
+#include <sys/types.h>
 #include <machine/vmm.h>
 #include <core/vmm.h>
 

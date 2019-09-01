@@ -205,4 +205,3 @@ static int elf_do_reloc(Elf32_Ehdr *hdr, Elf32_Rel *rel, Elf32_Shdr *reltab) {
 	}
 	return symval;
 }
-
