@@ -38,3 +38,6 @@ Getting started:
 	Fix stuff ;)
 
 	Submit
+
+
+Since we usually run on virtualization, most filesystems are either in-memory or network.

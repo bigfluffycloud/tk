@@ -1,3 +1,9 @@
 [submodule "lib/musl"]
 	path = lib/musl
 	url = git://git.musl-libc.org/musl
+[submodule "lib/ssfn"]
+	path = lib/ssfn
+	url = https://gitlab.com/bztsrc/scalable-font.git
+[submodule "bin/solarize-12x29-psf"]
+	path = bin/solarize-12x29-psf
+	url = https://github.com/talamus/solarize-12x29-psf.git

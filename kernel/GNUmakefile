@@ -11,10 +11,15 @@ include mk/config.mk
 include arch/rules.mk
 include core/rules.mk
 include crypto/rules.mk
+include dev/rules.mk
+include fonts/rules.mk
+include fs/rules.mk
+include ipc/rules.mk
 include lib/rules.mk
 #include net/rules.mk
 
 # Utilities
+include doc/rules.mk
 include mk/compile.mk
 include mk/kernel.mk
 include mk/clean.mk

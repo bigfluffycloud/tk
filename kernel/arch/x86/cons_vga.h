@@ -3,6 +3,13 @@
 
 #include <sys/types.h>
 #include <machine/vga.h>
+ 
+enum video_type {
+    VIDEO_TYPE_NONE = 0x00,
+    VIDEO_TYPE_COLOUR = 0x20,
+    VIDEO_TYPE_MONOCHROME = 0x30,
+};
+
 struct	cons {
   uint16_t	curs_x,			// cursor x
                 curs_y;			// cursor y
@@ -10,7 +17,9 @@ struct	cons {
   uint16_t	width,
                 height;
   uint16_t	*buf;			// buffer ptr (0xb800 for cons0)
+  enum video_type type;
 };
+        
         
 // console text colours
 #define	MD_CONS_BLACK	0
@@ -51,7 +60,13 @@ extern void cons_write(const char *str);
 
 // Cursor Management
 extern void cons_curs_set(const int x, const int y);
-extern void con_curs_enable(uint8_t cursor_start, uint8_t cursor_end);
-extern void cons_disable_cursor(void);
+extern uint16_t cons_curs_get(void);
+extern void cons_curs_enable(uint8_t cursor_start, uint8_t cursor_end);
+extern void cons_curs_disable(void);
+
+// Private-ish
+extern uint16_t cons_detect_bios_area_hardware(void);
+extern enum video_type cons_get_bios_area_video_type(void);
+
 
 #endif	// !defined(__machine_cons_vga_h)

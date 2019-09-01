@@ -8,12 +8,6 @@
 #include <core/ssp.h>
 struct cons cons;
  
-enum video_type {
-    VIDEO_TYPE_NONE = 0x00,
-    VIDEO_TYPE_COLOUR = 0x20,
-    VIDEO_TYPE_MONOCHROME = 0x30,
-};
- 
 uint16_t cons_detect_bios_area_hardware(void) {
     const uint16_t* bda_detected_hardware_ptr = (const uint16_t*) 0x410;
     return *bda_detected_hardware_ptr;
@@ -23,16 +17,26 @@ enum video_type cons_get_bios_area_video_type(void) {
     return (enum video_type) (cons_detect_bios_area_hardware() & 0x30);
 }
 
-void con_curs_enable(uint8_t cursor_start, uint8_t cursor_end) {
+void cons_curs_enable(uint8_t cursor_start, uint8_t cursor_end) {
     md_outb(0x3D4, 0x0A);
     md_outb(0x3D5, (md_inb(0x3D5) & 0xC0) | cursor_start);
     md_outb(0x3D4, 0x0B);
     md_outb(0x3D5, (md_inb(0x3D5) & 0xE0) | cursor_end);
 }
 
-void cons_disable_cursor(void) {
+void cons_curs_disable(void) {
     md_outb(0x3D4, 0x0A);
     md_outb(0x3D5, 0x20);
+}
+
+// Get cursor position
+uint16_t cons_curs_get(void) {
+    uint16_t pos = 0;
+    outb(0x3D4, 0x0F);
+    pos |= inb(0x3D5);
+    outb(0x3D4, 0x0E);
+    pos |= ((uint16_t)inb(0x3D5)) << 8;
+    return pos;
 }
 
 // <ESC>[x;yH or <ESC>[H (0,0) Position the cursor
@@ -124,3 +128,88 @@ void cons_init(void) {
   cons.buf = (uint16_t *)0xb8000;
   cons_clear();
 }
+
+//this is the bitmap font you've loaded
+unsigned char *font;
+
+#if	0 
+void md_cons_fb_drawchar(unsigned char c, int x, int y, int fgcolor, int bgcolor) {
+	int cx,cy;
+	int mask[8] = {1, 2, 4, 8, 16, 32, 64, 128};
+	unsigned char *gylph = font + (int)c * 16;
+ 
+	for (cy = 0 ; cy < 16; cy++){
+	    for (cx = 0; cx < 8; cx++) {
+		putpixel(glyph[cy]&mask[cx] ? fgcolor : bgcolor, x + cx, y + cy - 12);
+	    }
+	}
+}
+
+//this is the bitmap font you've loaded
+unsigned char *font;
+ 
+void cons_fb_drawchar_transparent(unsigned char c, int x, int y, int fgcolor) {
+	int cx, cy;
+	int mask[8] = { 1, 2, 4, 8, 16, 32, 64, 128};
+	unsigned char *gylph = font + (int)c * 16;
+ 
+	for (cy = 0; cy < 16; cy++) {
+            for (cx = 0; cx < 8; cx++) {
+		if (glyph[cy]&mask[cx])
+                   putpixel(fgcolor,x+cx,y+cy-12);
+            }
+	}
+}
+
+//this is the bitmap font you've loaded
+unsigned char *font;
+ 
+void drawchar_8BPP(unsigned char c, int x, int y, int fgcolor, int bgcolor) {
+	void *dest;
+	uint32_t *dest32;
+	unsigned char *src;
+	int row;
+	uint32_t fgcolor32;
+	uint32_t bgcolor32;
+ 
+	fgcolor32 = fgcolor | (fgcolor << 8) | (fgcolor << 16) | (fgcolor << 24);
+	bgcolor32 = bgcolor | (bgcolor << 8) | (bgcolor << 16) | (bgcolor << 24);
+	src = font + c * 16;
+	dest = videoBuffer + y * bytes_per_line + x;
+	for (row = 0; row < 16; row++) {
+	    if (*src != 0) {
+	       mask_low = mask_table[*src][0];
+	       mask_high = mask_table[*src][1];
+               dest32 = dest;
+	       dest32[0] = (bgcolor32 & ~mask_low) | (fgcolor32 & mask_low);
+	       dest32[1] = (bgcolor32 & ~mask_high) | (fgcolor32 & mask_high);
+            }
+	    src++;
+	    dest += bytes_per_line;
+	}
+}
+ 
+void drawchar_transparent_8BPP(unsigned char c, int x, int y, int fgcolor) {
+	void *dest;
+	uint32_t *dest32;
+	unsigned char *src;
+	int row;
+	uint32_t fgcolor32;
+ 
+	fgcolor32 = fgcolor | (fgcolor << 8) | (fgcolor << 16) | (fgcolor << 24);
+	src = font + c * 16;
+	dest = videoBuffer + y * bytes_per_line + x;
+
+	for (row = 0; row < 16; row++) {
+	    if (*src != 0) {
+	        mask_low = mask_table[*src][0];
+		mask_high = mask_table[*src][1];
+		dest32 = dest;
+		dest32[0] = (dest[0] & ~mask_low) | (fgcolor32 & mask_low);
+		dest32[1] = (dest[1] & ~mask_high) | (fgcolor32 & mask_high);
+            }
+	    src++;
+	    dest += bytes_per_line;
+	}
+}
+#endif
