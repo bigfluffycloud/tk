@@ -434,4 +434,5 @@ __END_DECLS
 
 #endif /* __BSD_VISIBLE */
 
+#include <sys/_null.h>
 #endif /* !_SYS_TYPES_H_ */
