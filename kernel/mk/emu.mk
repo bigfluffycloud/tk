@@ -32,6 +32,7 @@ ${floppy}: ${gzkern}
 	sudo mcopy -n -i ${floppy} ${gzkern} ::
 ifeq (${loader}, syslinux)
 	sudo syslinux ${floppy}
+	sudo mdel -i ${floppy} ::ldlinux.c32
 	sudo mcopy -n -i ${floppy} ${syslinux_dir}/*.c32 ::
 	echo "TIMEOUT 1" > .obj/${config}/syslinux.cfg
 	echo "DEFAULT mboot.c32 vmkern.gz ${kern_args}" >> .obj/${config}/syslinux.cfg

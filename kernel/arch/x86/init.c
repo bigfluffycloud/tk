@@ -41,7 +41,7 @@ int	md_init(void) {
   md_enable_interrupts();
   // Calculate speed
   // lapic_calculate_bus_speed();
-//  printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
+// cons_printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
 
    md_mmu_paging_init();
 //   md_pae_init();

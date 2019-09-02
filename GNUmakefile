@@ -1,3 +1,4 @@
+all: world
 subdirs := lib kernel
 
 include lib/rules.mk
