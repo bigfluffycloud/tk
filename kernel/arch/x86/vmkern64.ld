@@ -8,7 +8,7 @@ SECTIONS {
 
    __start = .;
    .text ALIGN(4K) : {
-      *(.multiboot)
+      KEEP(*(.multiboot))
       *(.text)
       *(.gnu.linkonce.t*)
    }

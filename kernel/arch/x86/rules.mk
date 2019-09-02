@@ -36,6 +36,7 @@ arch_objs += rtc.o
 arch_objs += serio.o
 arch_objs += sse.o
 arch_objs += sse_asm.o
+arch_objs += switch.o
 arch_objs += task.o
 arch_objs += tss.o
 arch_objs += vga.o

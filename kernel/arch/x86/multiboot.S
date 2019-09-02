@@ -12,6 +12,7 @@
 
 // Multiboot header
 .align	4
+.section .multiboot
 .long	MAGIC
 .long	FLAGS
 .long	CHECKSUM
