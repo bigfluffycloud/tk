@@ -1,3 +1,9 @@
 We include official musl C library source as a git submodule.
 
 This is our official C library and will be linked to each instance
+
+
+
+Included are third party bits such as:
+	FreeBSD/NetBSD sources (see files for details)
+	icu4c	International Components for Unicode

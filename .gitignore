@@ -4,3 +4,4 @@ gpl/cache/*
 gpl/build/*
 lib/build/*
 lib/cache/*
+cache/*
