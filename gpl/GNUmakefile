@@ -25,3 +25,5 @@ fetch:
 	[ -f cache/binutils-${binutils_ver}.tar.xz.sig ] || (cd cache; wget ${binutils_url}.sig)
 
 automaton: deb_deps fetch
+
+world: automaton binutils gcc

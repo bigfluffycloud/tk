@@ -1,3 +1,6 @@
 kernel/.obj/*
 kernel/.obj/.*
 gpl/cache/*
+gpl/build/*
+lib/build/*
+lib/cache/*
