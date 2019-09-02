@@ -1,3 +1,4 @@
+.code32
 	.globl	_entry
 	.extern	cons_write
 	.extern md_halt
@@ -25,14 +26,14 @@ stack_top:
 _entry:
 	cli
 	mov	$stack_top, %esp
-	pushl	$0
+	push	$0
 	popf
-	pushl	%eax			// multiboot magic number
-	pushl	%ebx			// multiboot data structure
+	push	%eax			// multiboot magic number
+	push	%ebx			// multiboot data structure
 
 	call	entry_multiboot		// entry point for multiboot
 
-	pushl	$__exit_str
+	push	$__exit_str
 	call	cons_write
 
 	// bochs breakpoint

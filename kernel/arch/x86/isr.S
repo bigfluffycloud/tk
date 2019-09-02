@@ -1,3 +1,4 @@
+.code32
 md_isr_common:
 	pusha			// push edi,esiebp,esp,ebx,edx,ecx,eax
 

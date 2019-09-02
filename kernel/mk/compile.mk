@@ -10,4 +10,12 @@ endif
 #kern_cflags += -Werror
 #endif
 
+ifeq (x${CPU_X86},x1)
+#
+endif
+
+ifeq (x${CPU_X86_64},x1)
+kern_cflags += -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 
+endif
+
 kern_ldflags += -nodefaultlibs -nostdlibs -T${linker_script}

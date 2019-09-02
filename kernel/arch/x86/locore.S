@@ -1,3 +1,4 @@
+.code32
 	.global md_gdt_flush
 md_gdt_flush:
 	mov	4(%esp), %eax	// get ptr to gdt

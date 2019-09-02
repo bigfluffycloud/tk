@@ -44,8 +44,10 @@ SECTIONS {
    .bss ALIGN(4K) : {
       __bss = .;
       *(COMMON)
+/*
       *(.stack)
       *(stack)
+ */ 
       *(.bss)
       *(.gnu.linkonce.b*)
       __ebss = .;
