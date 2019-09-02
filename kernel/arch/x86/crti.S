@@ -23,7 +23,7 @@ _fini:
 .global _init
 .type _init, @function
 _init:
-	push %rbp
+	pushq %rbp
 	movq %rsp, %rbp
 	/* gcc will nicely put the contents of crtbegin.o's .init section here. */
 

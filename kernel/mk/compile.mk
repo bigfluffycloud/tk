@@ -6,8 +6,8 @@ kern_asflags += -gdwarf-2
 kern_cflags += -MD -ggdb
 endif
 
-ifeq ($(origin NoWerror), undefined)
-kern_cflags += -Werror
-endif
+#ifeq ($(origin NoWerror), undefined)
+#kern_cflags += -Werror
+#endif
 
 kern_ldflags += -nodefaultlibs -nostdlibs -T${linker_script}

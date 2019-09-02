@@ -1,3 +1,6 @@
+#if	!defined(__machine_asm_h)
+#define	__machine_asm_h
+
 #include <sys/types.h>
 #include <sys/stdint.h>
 #include <sys/stdbool.h>
@@ -166,3 +169,6 @@ static inline void invlpg(void* m) {
     /* Clobber memory to avoid optimizer re-ordering access before invlpg, which may cause nasty bugs. */
     asm volatile ( "invlpg (%0)" : : "b"(m) : "memory" );
 }
+
+
+#endif	// !defined(__machine_asm_h)

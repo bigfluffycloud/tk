@@ -9,7 +9,7 @@ typedef uint32_t addr_t;
 #endif
 
 #if	defined(CPU_X86_64)
-typedf uint64_t addr_t;
+typedef uint64_t addr_t;
 #endif
 
 struct address_structure {

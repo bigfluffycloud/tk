@@ -4,6 +4,7 @@
 #include <machine/hpet.h>
 #include <machine/idt.h>
 #include <machine/mmu.h>
+#include <machine/pae.h>
 #include <machine/pic.h>
 #include <machine/pit.h>
 #include <machine/rtc.h>
@@ -43,6 +44,7 @@ int	md_init(void) {
 //  printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
 
    md_mmu_paging_init();
+//   md_pae_init();
    md_vmm_init();
    md_rtc_timer_init();
    md_task_init();

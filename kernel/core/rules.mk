@@ -1,4 +1,5 @@
 core_objs += init.o
+core_objs += interrupt.o
 core_objs += ssp.o
 core_objs += cons.o
 core_objs += task.o
