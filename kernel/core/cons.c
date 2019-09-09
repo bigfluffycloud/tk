@@ -1,10 +1,11 @@
 //
 // Here we implement common console code, shared between all console types...
 //
+#include <sys/stdint.h>
 #include <core/cons.h>
 #define SSFN_NOIMPLEMENTATION               /* don't include the normal renderer implementation */
 #define SSFN_CONSOLEBITMAP_HICOLOR          /* use the special renderer for hicolor packed pixels */
-#include <ssfn.h>
+#include <lib/ssfn.h>
 
 // cons_vprintf: varargs-enhanced printf for the console.
 // the first two args are x/y position (or -1, -1) to print at.
