@@ -49,3 +49,5 @@ arch_objs += crtn.o
 
 .obj/${config}/arch/x86/%.o:arch/x86/%.asm
 	nasm -felf -o $@ $<
+
+#include arch/x86/acpi/rules.mk
