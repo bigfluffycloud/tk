@@ -4,7 +4,7 @@
 #include <machine/asm.h>
 #include <machine/serio.h>
 
-
+// XXX: Calculate rate divisors here...
 void md_serio_init(uint32_t port, uint32_t rate) {
      md_outb(port + 1, 0x00);			// disable interrupts
      md_outb(port + 3, 0x80);			// Enable DLAB to set divisor

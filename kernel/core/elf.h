@@ -1,3 +1,6 @@
+#if	!defined(__core_elf_h)
+#define	__core_elf_h
+
 //#include <stdint.h>
 #include <type.h>
 typedef uint16_t Elf32_Half;	// Unsigned half int
@@ -172,3 +175,5 @@ static inline char *elf_lookup_string(Elf32_Ehdr *hdr, int offset) {
 	if(strtab == NULL) return NULL;
 	return strtab + offset;
 }
+
+#endif	// !defined(__core_elf_h)

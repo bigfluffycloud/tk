@@ -1,3 +1,6 @@
+#if	!defined(__machine_isr_h)
+#define	__machine_isr_h
+
 extern void md_isr_0();
 extern void md_isr_1();
 extern void md_isr_2();
@@ -33,3 +36,5 @@ extern void md_isr_31();
 extern void md_isr_32();
 extern void md_isr_96();
 extern void md_isr_128();
+
+#endif	// !defined(__machine_isr_h)

@@ -1,7 +1,6 @@
 #if	!defined(__machine_smp_h)
 #define	__machine_smp_h
 
-
 #include <sys/stddef.h>
 #include <sys/types.h>
 typedef struct {
@@ -23,7 +22,6 @@ typedef struct {
     // Few feature bytes.
     uint8_t FeatureBytes[5];
 } MPFloatingPoint;
-
 
 #endif	// !defined(__machine_smp_h)
  

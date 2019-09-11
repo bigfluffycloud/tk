@@ -7,13 +7,16 @@ ${gzkern}: ${vmkern}
 
 ${vmkern}: prebuild ${kern_objs}
 	@echo "*** Linking ${vmkern} ..."
-	${LD} ${kern_ldflags} -o $@ ${kern_objs} ${kern_cpp_objs}
+	${kernel_ld} ${kern_ldflags} -o $@ ${kern_objs} ${kern_cpp_objs}
 
 	@if grub-file --is-x86-multiboot $@; then \
   		echo "Multiboot image OK"; \
 	else \
 		echo "NOT multiboot"; \
 	fi
+
+	@echo "*** Generating symbol table..."
+	${kernel_nm} --demangle --format=posix $@ > $@.symtab
 
 prebuild:
 	@echo "*** Preparing target tree..."

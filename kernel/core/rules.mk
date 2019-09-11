@@ -11,4 +11,4 @@ obj_dirs += .obj/${config}/core
 kern_objs += $(foreach x, ${core_objs}, .obj/${config}/core/${x})
 
 .obj/${config}/core/%.o:core/%.c
-	${CC} ${kern_cflags} -o $@ -c $<
+	${kernel_cc} ${kern_cflags} -o $@ -c $<

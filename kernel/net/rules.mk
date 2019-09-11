@@ -15,4 +15,4 @@ obj_dirs += .obj/${config}/net
 kern_objs += $(foreach x, ${net_objs}, .obj/${config}/net/${x})
 
 .obj/${config}/net/%.o:net/%.c
-	${CC} ${kern_cflags} -o $@ -c $<
+	${kernel_cc} ${kern_cflags} -o $@ -c $<

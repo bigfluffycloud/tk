@@ -1,4 +1,8 @@
+#if	!defined(__machine_tss_h)
+#define	__machine_tss_h
+
 #include <sys/types.h>
+#include <core/task.h>
 
 struct md_tss {
     uint16_t	back_link, :16;
@@ -25,6 +29,8 @@ struct md_tss {
 
 //struct md_task;
 extern struct md_tss *md_tss_get(void);
-extern uint64_t td_make_tss_desc(void *);
+extern uint64_t md_make_tss_desc(void *);
 // extern void md_tss_update(struct task *task);
 extern void md_tss_init(void);
+
+#endif	// !defined(__machine_tss_h)

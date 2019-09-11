@@ -1,4 +1,4 @@
-#include <cons.h>
+#include <core/cons.h>
 #include <machine/reboot.h>
 
 extern int md_init(void);

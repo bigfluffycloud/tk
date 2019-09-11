@@ -1,7 +1,7 @@
 // Processor exceptions and stack traces
 #include <machine/except.h>
 #include <machine/pit.h>
-#include <cons.h>
+#include <core/cons.h>
 
 static void md_null_int(void) {
   cons_colour(CONS_RED, CONS_BLACK);
@@ -32,7 +32,6 @@ md_int_map md_int_tbl[] = {
 };
 
 void	md_isr_c(md_trap_frame frame) {
-  cons_write("Got interrupt");
   // Is a handler defined?
   if (md_int_tbl[frame.int_no].hndlr != md_null_int) {
      // Does the handler have arguments?
@@ -61,7 +60,7 @@ void	md_stack_dump(uint32_t MaxFrames) {
    cons_colour(CONS_YELLOW, CONS_BLUE);
    cons_clear();
    cons_write("Task Crashed :(\n\n");
-   cons_write("Stack trace:\n");
+   cons_write("\tStack trace:\n");
 
    for (uint32_t frame = 0; frame < MaxFrames; ++frame) {
         uint32_t eip = ebp[1];

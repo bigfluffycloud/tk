@@ -10,28 +10,35 @@
 #include <machine/rtc.h>
 #include <machine/vmm.h>
 #include <machine/task.h>
-#include <cons.h>
+#include <core/cons.h>
 
 int	md_init(void) {
   cons_init();
+
+  // Print logo
   cons_colour(CONS_LTGREY, CONS_BLACK);
   cons_write("tk version ");
   cons_colour(CONS_RED, CONS_BLACK);
   cons_write(TK_VERSION);
   cons_colour(CONS_LTGREY, CONS_BLACK);
-  cons_write(" Copyright © 2019 osdev.ninja\n");
+  cons_write(" Copyright ©2019 osdev.ninja\n");
   cons_colour(CONS_YELLOW, CONS_BLACK);
   cons_write("\n[");
   cons_colour(CONS_CYAN, CONS_BLACK);
   cons_write("startup");
   cons_colour(CONS_YELLOW, CONS_BLACK);
   cons_write("]\n");
-  // Disable interrupts
+
+  md_disable_interrupts();
+
   // Configure interrupt controller
   md_pic_init();
-  // Load Dummy IDT
+
+  // XXX: Load Dummy IDT
+
   // Do nothing for a moment until interrupts settle
   __asm__ __volatile__("sti\nnop\nnop\nnop\nnop\nnop\ncli");
+
   // md_lapic_init();
   // md_ioapic_init();
   // Setup global descriptor table

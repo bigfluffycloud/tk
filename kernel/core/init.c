@@ -1,6 +1,6 @@
 #include <sys/types.h>
 #include <core/ssp.h>
-#include <cons.h>
+#include <core/cons.h>
 #include <core/vmm.h>
 #include <machine/reboot.h>
 #include <config.h>

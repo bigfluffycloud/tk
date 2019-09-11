@@ -1,3 +1,6 @@
+#if	!defined(__core_font_psf_h)
+#define	__core_font_psf_h
+
 #define PSF_FONT_MAGIC 0x864ab572
  
 typedef struct {
@@ -60,3 +63,4 @@ void psf_init(void) {
     }
 }
 
+#endif	// !defined(__core_font_psf_h)

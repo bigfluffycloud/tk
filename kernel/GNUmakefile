@@ -1,4 +1,9 @@
-CC := gcc
+#CC := gcc
+CC_PATH=/home/joseph/proj/toolchain/bin
+kernel_cc := ${CC_PATH}/i686-elf-gcc
+kernel_ld := ${CC_PATH}/i686-elf-ld
+kernel_as := ${CC_PATH}/i686-elf-as
+kernel_nm := ${CC_PATH}/i686-elf-nm
 
 VERSION := "0.2.0-lite1"
 

@@ -1,6 +1,7 @@
 #include <sys/types.h>
-#include <cons.h>
+#include <core/cons.h>
 #include <machine/gdt.h>
+#include <machine/tss.h>
 md_gdt_entry md_gdt_entries[5];
 md_gdt_ptr md_gdtptr;
 
@@ -10,7 +11,7 @@ void	md_gdt_set(int32_t num, uint32_t base, uint32_t limit, uint8_t access, uint
      cons_colour(CONS_RED, CONS_WHITE);
      cons_write("ERROR: Invalid md_gdt_set limit");
      cons_colour(CONS_WHITE, CONS_RED);
-//     cons_write("Invalid limit %lu @ %s:%D\n", __FUNCTION__, __LINE__);
+     cons_printf("Invalid limit %lu @ %s:%D\n", __FUNCTION__, __LINE__);
      return;
   }
 
@@ -40,9 +41,11 @@ void	md_gdt_init(void) {
   md_gdt_set(3,	0,	0xffffffff,	0xfa,	0xcf);	// App:code
   md_gdt_set(4,	0,	0xffffffff,	0xf2,	0xcf);	// App:data
 
+// XXX: Fix TSS code and reenable
 //  md_tss_write(5, 0x10, 0x0);
   md_gdt_flush((uint32_t)&md_gdtptr);
 //  md_tss_flush();
+
   cons_colour(CONS_GREEN, CONS_BLACK);
   cons_write("\t\t\t\tOK\n");
 }

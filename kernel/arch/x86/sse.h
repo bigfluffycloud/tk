@@ -1,5 +1,4 @@
 // This supports machine/sse.c and machine/sse_asm.S
-
 #if	!defined(__machine_sse_h)
 #define	__machine_sse_h
 

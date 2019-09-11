@@ -2,7 +2,7 @@
 #include <sys/types.h>
 #include <machine/asm.h>
 #include <machine/mmu.h>
-#include <cons.h>
+#include <core/cons.h>
 
 #define	PAGEDIR_ENTRIES	1024
 

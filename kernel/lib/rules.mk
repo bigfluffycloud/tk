@@ -14,4 +14,4 @@ obj_dirs += .obj/${config}/lib
 kern_objs += $(foreach x, ${lib_objs}, .obj/${config}/lib/${x})
 
 .obj/${config}/lib/%.o:lib/%.c
-	${CC} ${kern_cflags} -D__is_libk=1 -o $@ -c $<
+	${kernel_cc} ${kern_cflags} -D__is_libk=1 -o $@ -c $<

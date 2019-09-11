@@ -1,6 +1,6 @@
 #include <sys/types.h>
 #include <string.h>
-#include <cons.h>
+#include <core/cons.h>
 #include <machine/idt.h>
 #include <machine/isr.h>
 #include <machine/except.h>

@@ -2,7 +2,7 @@
 #include <sys/stddef.h>
 #include <machine/asm.h>
 #include <machine/pic.h>
-#include <cons.h>
+#include <core/cons.h>
 
 // Initially we mask off all IRQs *except* cascade (irq 2)
 static uint16_t irqmask = 0xFFFF & ~(1 << CASCADE);

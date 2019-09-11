@@ -1,3 +1,6 @@
+#if	!defined(__machine_vga_h)
+#define	__machine_vga_h
+
 // VGA stuff
 #define	VGA_AC_INDEX		0x3C0
 #define	VGA_AC_WRITE		0x3C0
@@ -22,3 +25,5 @@
 #define	VGA_NUM_AC_REGS		21
 #define	VGA_NUM_REGS		(1 + VGA_NUM_SEQ_REGS + VGA_NUM_CRTC_REGS + \
                                  VGA_NUM_GC_REGS + VGA_NUM_AC_REGS)
+
+#endif	// !defined(__machine_vga_h)

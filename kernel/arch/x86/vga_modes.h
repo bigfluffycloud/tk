@@ -1,3 +1,5 @@
+#if	!defined(__machine_vga_modes_h)
+#define __machine_vga_modes_h
 
 unsigned char g_80x25_text[] = {
 /* MISC */
@@ -76,3 +78,5 @@ unsigned char g_90x60_text[] = {
 	0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F,
 	0x0C, 0x00, 0x0F, 0x08, 0x00,
 };
+
+#endif	// !defined(__machine_vga_modes_h)

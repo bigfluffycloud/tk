@@ -2,7 +2,7 @@
 #include <machine/asm.h>
 #include <machine/pit.h>
 #include <machine/pic.h>
-#include <cons.h>
+#include <core/cons.h>
 static uint8_t task = 0;
 static uint8_t last_task = 0;
 

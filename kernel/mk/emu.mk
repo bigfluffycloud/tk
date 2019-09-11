@@ -76,12 +76,16 @@ bochs: floppy bochsrc.txt
 bochsrc.txt:
 	echo "boot: floppy" > bochsrc.txt
 	echo "floppya: type=1_44, 1_44=\"${floppy}\", status=inserted" >> bochsrc.txt
-	echo "cpu: count=1, ips=500000, reset_on_triple_fault=0, ignore_bad_msrs=1" >> bochsrc.txt
+	echo "cpu: count=1, ips=1000000, reset_on_triple_fault=0, ignore_bad_msrs=1" >> bochsrc.txt
 	echo "log: bochsout.txt" >> bochsrc.txt
 	echo "mouse: enabled=0" >> bochsrc.txt
 	echo "clock: sync=realtime" >> bochsrc.txt
+	echo "display_library: sdl2" >> bochsrc.txt
+
+qemu-direct: ${vmkern}
+	qemu-system-i386 -kernel ${vmkern} ${qemu_opts}
 
 qemu-cd: cdrom
 	qemu-system-i386 -cdrom ${cdrom}
 	
-qemu: qemu-floppy
+qemu: qemu-direct

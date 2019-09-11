@@ -1,5 +1,5 @@
 #include <sys/types.h>
-#include <cons.h>
+#include <core/cons.h>
 #include <machine/mmu.h>
 #include <machine/vmm.h>
 
@@ -13,8 +13,8 @@ static pageframe_t kalloc_frame_int(void) {
            }
        }
        frame_map[i] = USED;
-       return(startframe + (i*0x1000));//return the address of the page frame based on the location declared free
-       //in the array
+       return(startframe + (i * 0x1000));
+       //return the address of the page frame based on the location declared free in the array
 }
 
 pageframe_t kalloc_frame(void) {
