@@ -21,6 +21,8 @@ include fonts/rules.mk
 include fs/rules.mk
 include ipc/rules.mk
 include lib/rules.mk
+
+# uIP based network stack
 #include net/rules.mk
 
 # Utilities

@@ -13,6 +13,7 @@
 #include <core/cons.h>
 
 int	md_init(void) {
+  md_disable_interrupts();
   cons_init();
 
   // Print logo
@@ -28,8 +29,6 @@ int	md_init(void) {
   cons_write("startup");
   cons_colour(CONS_YELLOW, CONS_BLACK);
   cons_write("]\n");
-
-  md_disable_interrupts();
 
   // Configure interrupt controller
   md_pic_init();
