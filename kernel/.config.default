@@ -1,5 +1,9 @@
-# Presently we only support x86
+# Presently we only support x86, with x86_64 and arm (rpi) in work
 CF_ARCH=x86
+#CF_ARCH=x64
+
+#CF_ARCH=arm
+#CF_PLATFORM=rpi
 
 # Choices: grub, grub2, syslinux
 loader=syslinux
@@ -11,7 +15,7 @@ kern_args=
 #NDEBUG=y
 
 # Uncomment to disable strict compilation (usually safe)
-#NoWerror=y
+NoWerror=y
 
 # Number of CPUs to emulate? Comment for Uniprocessor
 EMU_SMP_CPUS=2

@@ -41,7 +41,7 @@ SECTIONS {
       *(.dynamic)
    }
 
-   .bss ALIGN(4K) : {
+   .bss ALIGN(4K) (NOLOAD): {
       __bss = .;
       *(COMMON)
       *(.stack)

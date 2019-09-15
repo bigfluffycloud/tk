@@ -24,10 +24,14 @@ void md_pae_init(void) {
          address = address + 0x1000;
      }
 
+#if	defined(CPU_X86)
      asm volatile ("movl %cr4, %eax; bts $5, %eax; movl %eax, %cr4"); // set bit5 in CR4 to enable PAE		 
      asm volatile ("movl %%eax, %%cr3" :: "a" (&page_dir_ptr_tab)); // load PDPT into CR3
      asm volatile ("movl %cr0, %eax; orl $0x80000000, %eax; movl %eax, %cr0;");
-
+#endif
+#if	defined(CPU_X86_64)
+     // XXX: make 64bit version
+#endif
      page_dir = (uint64_t*)page_dir_ptr_tab[3]; // get the page directory (you should 'and' the flags away)
      page_dir[511] = (uint64_t)page_dir; // map pd to itself
      page_dir[510] = page_dir_ptr_tab[2]; // map pd3 to it

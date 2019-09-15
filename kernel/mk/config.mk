@@ -11,6 +11,3 @@ endif
 
 vmkern ?= .obj/${config}/vmkern
 gzkern ?= ${vmkern}.gz
-
-#CPU_X86_64=1
-CPU_X86=1

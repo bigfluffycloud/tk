@@ -1,15 +1,21 @@
-ifeq (x${CF_ARCH}, x)
+ifeq (x${CF_ARCH},x)
 $(error Must set CF_ARCH to a valid plaform, see arch/)
 endif
 
 # Sub-platform aliases
-ifeq (${CF_ARCH}, x64})
+ifeq (${CF_ARCH},x86)
+gen_arch := x86
+sub_arch := 
+endif
+
+ifeq (${CF_ARCH},x64)
 gen_arch := x86
 sub_arch := x64
 endif
 
-# Hasn't been overriden, so set to config arch
-gen_arch ?= ${CF_ARCH}
+ifeq ($(origin gen_arch), undefined)
+$(error  gen_arch unset, bailing -- CF_ARCH: ${CF_ARCH})
+endif
 
 ifeq (arch/${gen_arch}/rules.mk, $(wildcard arch/${gen_arch}/rules.mk))
 include arch/${gen_arch}/rules.mk
