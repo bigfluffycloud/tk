@@ -1,6 +1,6 @@
 .code32
 md_isr_common:
-	pusha			// push edi,esiebp,esp,ebx,edx,ecx,eax
+	pusha			// push edi,esi,ebp,esp,ebx,edx,ecx,eax
 
 	// save segment selector
 	movw	%ds, %ax
@@ -32,6 +32,7 @@ md_isr_common:
 // Ugly but could be worse ;)
 // If ec = 1, has error code, else doesnt
 .macro isr num, ec=0
+	.align 4
 	.globl md_isr_\num
 md_isr_\num:
 	cli

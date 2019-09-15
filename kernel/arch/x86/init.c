@@ -13,8 +13,8 @@
 #include <core/cons.h>
 
 int	md_init(void) {
-  md_disable_interrupts();
-  cons_init();
+  md_disable_interrupts();		// cli
+  cons_init();				// 
 
   // Print logo
   cons_colour(CONS_LTGREY, CONS_BLACK);

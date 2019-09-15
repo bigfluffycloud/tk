@@ -26,6 +26,7 @@ include lib/rules.mk
 #include net/rules.mk
 
 # Utilities
+include mk/cross-compile.mk
 include doc/rules.mk
 include mk/compile.mk
 include mk/kernel.mk

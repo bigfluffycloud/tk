@@ -19,7 +19,7 @@ int md_idt_set(uint32_t irq,  uint32_t hndlr, uint16_t flags, uint16_t sel) {
    md_idt_entries[irq].base_hi = (hndlr >> 16) & 0xffff;
    md_idt_entries[irq].rsvd = 0;
    md_idt_entries[irq].flags = flags;
-   md_idt_entries[irq].sel = sel;
+   md_idt_entries[irq].selector = sel;
    return 0;
 }
 
