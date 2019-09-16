@@ -2,7 +2,15 @@ ifeq (x${CF_ARCH},x)
 $(error Must set CF_ARCH to a valid plaform, see arch/)
 endif
 
+
 # Sub-platform aliases
+ifeq (${CF_ARCH},arm)
+gen_arch := arm
+ifeq (${CF_PLATFORM},rpi)
+sub_arch := rpi
+endif
+endif
+
 ifeq (${CF_ARCH},x86)
 gen_arch := x86
 sub_arch := 

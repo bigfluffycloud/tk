@@ -1,4 +1,7 @@
+ifeq (${gen_arch},x86)
 dev_objs += pcspkr.o
+endif
+
 dev_objs += virtio_guest.o
 
 obj_dirs += .obj/${config}/dev

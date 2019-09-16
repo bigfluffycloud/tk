@@ -1,6 +1,6 @@
+/*	$NetBSD: types.h,v 1.102 2018/11/06 16:26:44 maya Exp $	*/
+
 /*-
- * SPDX-License-Identifier: BSD-3-Clause
- *
  * Copyright (c) 1982, 1986, 1991, 1993, 1994
  *	The Regents of the University of California.  All rights reserved.
  * (c) UNIX System Laboratories, Inc.
@@ -33,406 +33,326 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	@(#)types.h	8.6 (Berkeley) 2/19/95
- * $FreeBSD$
+ *	@(#)types.h	8.4 (Berkeley) 1/21/94
  */
 
 #ifndef _SYS_TYPES_H_
 #define	_SYS_TYPES_H_
 
-#include <sys/cdefs.h>
+#include <sys/featuretest.h>
 
 /* Machine type dependent parameters. */
+#include <machine/types.h>
+
+#include <machine/ansi.h>
+#include <machine/int_types.h>
+
+
+#include <sys/ansi.h>
+
+#ifndef	_BSD_INT8_T_
+typedef	__int8_t	int8_t;
+#define	_BSD_INT8_T_
+#endif
+
+#ifndef	_BSD_UINT8_T_
+typedef	__uint8_t	uint8_t;
+#define	_BSD_UINT8_T_
+#endif
+
+#ifndef	_BSD_INT16_T_
+typedef	__int16_t	int16_t;
+#define	_BSD_INT16_T_
+#endif
+
+#ifndef	_BSD_UINT16_T_
+typedef	__uint16_t	uint16_t;
+#define	_BSD_UINT16_T_
+#endif
+
+#ifndef	_BSD_INT32_T_
+typedef	__int32_t	int32_t;
+#define	_BSD_INT32_T_
+#endif
+
+#ifndef	_BSD_UINT32_T_
+typedef	__uint32_t	uint32_t;
+#define	_BSD_UINT32_T_
+#endif
+
+#ifndef	_BSD_INT64_T_
+typedef	__int64_t	int64_t;
+#define	_BSD_INT64_T_
+#endif
+
+#ifndef	_BSD_UINT64_T_
+typedef	__uint64_t	uint64_t;
+#define	_BSD_UINT64_T_
+#endif
+
+typedef	uint8_t		u_int8_t;
+typedef	uint16_t	u_int16_t;
+typedef	uint32_t	u_int32_t;
+typedef	uint64_t	u_int64_t;
+
 #include <machine/endian.h>
-#include <sys/_types.h>
 
-#include <sys/_pthreadtypes.h>
-
-#if __BSD_VISIBLE
+#if defined(_NETBSD_SOURCE)
 typedef	unsigned char	u_char;
 typedef	unsigned short	u_short;
 typedef	unsigned int	u_int;
 typedef	unsigned long	u_long;
-#ifndef _KERNEL
+
+typedef unsigned char	unchar;		/* Sys V compatibility */
 typedef	unsigned short	ushort;		/* Sys V compatibility */
 typedef	unsigned int	uint;		/* Sys V compatibility */
+typedef unsigned long	ulong;		/* Sys V compatibility */
 #endif
-#endif
 
-/*
- * XXX POSIX sized integrals that should appear only in <sys/stdint.h>.
- */
-#include <sys/_stdint.h>
-
-typedef __uint8_t	u_int8_t;	/* unsigned integrals (deprecated) */
-typedef __uint16_t	u_int16_t;
-typedef __uint32_t	u_int32_t;
-typedef __uint64_t	u_int64_t;
-
-typedef	__uint64_t	u_quad_t;	/* quads (deprecated) */
-typedef	__int64_t	quad_t;
+typedef	uint64_t	u_quad_t;	/* quads */
+typedef	int64_t		quad_t;
 typedef	quad_t *	qaddr_t;
 
-typedef	char *		caddr_t;	/* core address */
-typedef	const char *	c_caddr_t;	/* core address, pointer to const */
+/*
+ * The types longlong_t and u_longlong_t exist for use with the
+ * Sun-derived XDR routines involving these types, and their usage
+ * in other contexts is discouraged.  Further note that these types
+ * may not be equivalent to "long long" and "unsigned long long",
+ * they are only guaranteed to be signed and unsigned 64-bit types
+ * respectively.  Portable programs that need 64-bit types should use
+ * the C99 types int64_t and uint64_t instead.
+ */
 
-#ifndef _BLKSIZE_T_DECLARED
-typedef	__blksize_t	blksize_t;
-#define	_BLKSIZE_T_DECLARED
+typedef	int64_t		longlong_t;	/* for XDR */
+typedef	uint64_t	u_longlong_t;	/* for XDR */
+
+typedef	int64_t		blkcnt_t;	/* fs block count */
+typedef	int32_t		blksize_t;	/* fs optimal block size */
+
+#ifndef	fsblkcnt_t
+typedef	__fsblkcnt_t	fsblkcnt_t;	/* fs block count (statvfs) */
+#define fsblkcnt_t	__fsblkcnt_t
 #endif
 
-typedef	__cpuwhich_t	cpuwhich_t;
-typedef	__cpulevel_t	cpulevel_t;
-typedef	__cpusetid_t	cpusetid_t;
-
-#ifndef _BLKCNT_T_DECLARED
-typedef	__blkcnt_t	blkcnt_t;
-#define	_BLKCNT_T_DECLARED
+#ifndef	fsfilcnt_t
+typedef	__fsfilcnt_t	fsfilcnt_t;	/* fs file count */
+#define fsfilcnt_t	__fsfilcnt_t
 #endif
 
-#ifndef _CLOCK_T_DECLARED
-typedef	__clock_t	clock_t;
-#define	_CLOCK_T_DECLARED
+#if !defined(_KERNEL) && !defined(_STANDALONE)
+/* We don't and shouldn't use caddr_t in the kernel anymore */
+#ifndef	caddr_t
+typedef	__caddr_t	caddr_t;	/* core address */
+#define	caddr_t		__caddr_t
+#endif
 #endif
 
-#ifndef _CLOCKID_T_DECLARED
-typedef	__clockid_t	clockid_t;
-#define	_CLOCKID_T_DECLARED
-#endif
-
-typedef	__critical_t	critical_t;	/* Critical section value */
+#ifdef __daddr_t
 typedef	__daddr_t	daddr_t;	/* disk address */
-
-#ifndef _DEV_T_DECLARED
-typedef	__dev_t		dev_t;		/* device number or struct cdev */
-#define	_DEV_T_DECLARED
+#undef __daddr_t
+#else
+typedef	int64_t		daddr_t;	/* disk address */
 #endif
 
-#ifndef _FFLAGS_T_DECLARED
-typedef	__fflags_t	fflags_t;	/* file flags */
-#define	_FFLAGS_T_DECLARED
-#endif
+typedef	uint64_t	dev_t;		/* device number */
+typedef	uint32_t	fixpt_t;	/* fixed point number */
 
-typedef	__fixpt_t	fixpt_t;	/* fixed point number */
-
-#ifndef _FSBLKCNT_T_DECLARED		/* for statvfs() */
-typedef	__fsblkcnt_t	fsblkcnt_t;
-typedef	__fsfilcnt_t	fsfilcnt_t;
-#define	_FSBLKCNT_T_DECLARED
-#endif
-
-#ifndef _GID_T_DECLARED
+#ifndef	gid_t
 typedef	__gid_t		gid_t;		/* group id */
-#define	_GID_T_DECLARED
+#define	gid_t		__gid_t
 #endif
 
-#ifndef _IN_ADDR_T_DECLARED
-typedef	__uint32_t	in_addr_t;	/* base type for internet address */
-#define	_IN_ADDR_T_DECLARED
-#endif
+typedef	uint32_t	id_t;		/* group id, process id or user id */
+typedef	uint64_t	ino_t;		/* inode number */
+typedef	long		key_t;		/* IPC key (for Sys V IPC) */
 
-#ifndef _IN_PORT_T_DECLARED
-typedef	__uint16_t	in_port_t;
-#define	_IN_PORT_T_DECLARED
-#endif
-
-#ifndef _ID_T_DECLARED
-typedef	__id_t		id_t;		/* can hold a uid_t or pid_t */
-#define	_ID_T_DECLARED
-#endif
-
-#ifndef _INO_T_DECLARED
-typedef	__ino_t		ino_t;		/* inode number */
-#define	_INO_T_DECLARED
-#endif
-
-#ifndef _KEY_T_DECLARED
-typedef	__key_t		key_t;		/* IPC key (for Sys V IPC) */
-#define	_KEY_T_DECLARED
-#endif
-
-#ifndef _LWPID_T_DECLARED
-typedef	__lwpid_t	lwpid_t;	/* Thread ID (a.k.a. LWP) */
-#define	_LWPID_T_DECLARED
-#endif
-
-#ifndef _MODE_T_DECLARED
+#ifndef	mode_t
 typedef	__mode_t	mode_t;		/* permissions */
-#define	_MODE_T_DECLARED
+#define	mode_t		__mode_t
 #endif
 
-#ifndef _ACCMODE_T_DECLARED
-typedef	__accmode_t	accmode_t;	/* access permissions */
-#define	_ACCMODE_T_DECLARED
-#endif
+typedef	uint32_t	nlink_t;	/* link count */
 
-#ifndef _NLINK_T_DECLARED
-typedef	__nlink_t	nlink_t;	/* link count */
-#define	_NLINK_T_DECLARED
-#endif
-
-#ifndef _OFF_T_DECLARED
+#ifndef	off_t
 typedef	__off_t		off_t;		/* file offset */
-#define	_OFF_T_DECLARED
+#define	off_t		__off_t
 #endif
 
-#ifndef _OFF64_T_DECLARED
-typedef	__off64_t	off64_t;	/* file offset (alias) */
-#define	_OFF64_T_DECLARED
-#endif
-
-#ifndef _PID_T_DECLARED
+#ifndef	pid_t
 typedef	__pid_t		pid_t;		/* process id */
-#define	_PID_T_DECLARED
+#define	pid_t		__pid_t
 #endif
+typedef int32_t		lwpid_t;	/* LWP id */
+typedef uint64_t	rlim_t;		/* resource limit */
+typedef	int32_t		segsz_t;	/* segment size */
+typedef	int32_t		swblk_t;	/* swap offset */
 
-typedef	__register_t	register_t;
-
-#ifndef _RLIM_T_DECLARED
-typedef	__rlim_t	rlim_t;		/* resource limit */
-#define	_RLIM_T_DECLARED
-#endif
-
-typedef	__int64_t	sbintime_t;
-
-typedef	__segsz_t	segsz_t;	/* segment size (in pages) */
-
-#ifndef _SIZE_T_DECLARED
-typedef	__size_t	size_t;
-#define	_SIZE_T_DECLARED
-#endif
-
-#ifndef _SSIZE_T_DECLARED
-typedef	__ssize_t	ssize_t;
-#define	_SSIZE_T_DECLARED
-#endif
-
-#ifndef _SUSECONDS_T_DECLARED
-typedef	__suseconds_t	suseconds_t;	/* microseconds (signed) */
-#define	_SUSECONDS_T_DECLARED
-#endif
-
-#ifndef _TIME_T_DECLARED
-typedef	__time_t	time_t;
-#define	_TIME_T_DECLARED
-#endif
-
-#ifndef _TIMER_T_DECLARED
-typedef	__timer_t	timer_t;
-#define	_TIMER_T_DECLARED
-#endif
-
-#ifndef _MQD_T_DECLARED
-typedef	__mqd_t	mqd_t;
-#define	_MQD_T_DECLARED
-#endif
-
-typedef	__u_register_t	u_register_t;
-
-#ifndef _UID_T_DECLARED
+#ifndef	uid_t
 typedef	__uid_t		uid_t;		/* user id */
-#define	_UID_T_DECLARED
+#define	uid_t		__uid_t
 #endif
 
-#ifndef _USECONDS_T_DECLARED
-typedef	__useconds_t	useconds_t;	/* microseconds (unsigned) */
-#define	_USECONDS_T_DECLARED
-#endif
+typedef int		mqd_t;
 
-#ifndef _CAP_IOCTL_T_DECLARED
-#define	_CAP_IOCTL_T_DECLARED
-typedef	unsigned long	cap_ioctl_t;
-#endif
+typedef	unsigned long	cpuid_t;
 
-#ifndef _CAP_RIGHTS_T_DECLARED
-#define	_CAP_RIGHTS_T_DECLARED
-struct cap_rights;
+typedef	int		psetid_t;
 
-typedef	struct cap_rights	cap_rights_t;
-#endif
+typedef volatile __cpu_simple_lock_nv_t __cpu_simple_lock_t;
+
+#if defined(_KERNEL) || defined(_STANDALONE)
+
+#include <sys/stdbool.h>
 
 /*
- * Types suitable for exporting size and pointers (as virtual addresses)
- * from the kernel independent of native word size.  These should be
- * used in place of size_t and (u)intptr_t in structs which contain such
- * types that are shared with userspace.
+ * Deprecated Mach-style boolean_t type.  Should not be used by new code.
  */
-typedef	__uint64_t	kvaddr_t;
-typedef	__uint64_t	ksize_t;
-
-typedef	__vm_offset_t	vm_offset_t;
-typedef	__uint64_t	vm_ooffset_t;
-typedef	__vm_paddr_t	vm_paddr_t;
-typedef	__uint64_t	vm_pindex_t;
-typedef	__vm_size_t	vm_size_t;
-
-typedef __rman_res_t    rman_res_t;
-
-#ifdef _KERNEL
-typedef	int		boolean_t;
-typedef	struct device	*device_t;
-typedef	__intfptr_t	intfptr_t;
-
-/*
- * XXX this is fixed width for historical reasons.  It should have had type
- * __int_fast32_t.  Fixed-width types should not be used unless binary
- * compatibility is essential.  Least-width types should be used even less
- * since they provide smaller benefits.
- *
- * XXX should be MD.
- *
- * XXX this is bogus in -current, but still used for spl*().
- */
-typedef	__uint32_t	intrmask_t;	/* Interrupt mask (spl, xxx_imask...) */
-
-typedef	__uintfptr_t	uintfptr_t;
-typedef	__uint64_t	uoff_t;
-typedef	char		vm_memattr_t;	/* memory attribute codes */
-typedef	struct vm_page	*vm_page_t;
-
-#if !defined(__bool_true_false_are_defined) && !defined(__cplusplus)
-#define	__bool_true_false_are_defined	1
-#define	false	0
-#define	true	1
-#if __STDC_VERSION__ < 199901L && __GNUC__ < 3 && !defined(__INTEL_COMPILER)
-typedef	int	_Bool;
+typedef int	boolean_t;
+#ifndef TRUE
+#define	TRUE	1
 #endif
-typedef	_Bool	bool;
-#endif /* !__bool_true_false_are_defined && !__cplusplus */
-
-#define offsetof(type, field) __offsetof(type, field)
-
-#endif /* !_KERNEL */
-
-/*
- * The following are all things that really shouldn't exist in this header,
- * since its purpose is to provide typedefs, not miscellaneous doodads.
- */
-
-#ifdef __POPCNT__
-#define	__bitcount64(x)	__builtin_popcountll((__uint64_t)(x))
-#define	__bitcount32(x)	__builtin_popcount((__uint32_t)(x))
-#define	__bitcount16(x)	__builtin_popcount((__uint16_t)(x))
-#define	__bitcountl(x)	__builtin_popcountl((unsigned long)(x))
-#define	__bitcount(x)	__builtin_popcount((unsigned int)(x))
-#else
-/*
- * Population count algorithm using SWAR approach
- * - "SIMD Within A Register".
- */
-static __inline __uint16_t
-__bitcount16(__uint16_t _x)
-{
-
-	_x = (_x & 0x5555) + ((_x & 0xaaaa) >> 1);
-	_x = (_x & 0x3333) + ((_x & 0xcccc) >> 2);
-	_x = (_x + (_x >> 4)) & 0x0f0f;
-	_x = (_x + (_x >> 8)) & 0x00ff;
-	return (_x);
-}
-
-static __inline __uint32_t
-__bitcount32(__uint32_t _x)
-{
-
-	_x = (_x & 0x55555555) + ((_x & 0xaaaaaaaa) >> 1);
-	_x = (_x & 0x33333333) + ((_x & 0xcccccccc) >> 2);
-	_x = (_x + (_x >> 4)) & 0x0f0f0f0f;
-	_x = (_x + (_x >> 8));
-	_x = (_x + (_x >> 16)) & 0x000000ff;
-	return (_x);
-}
-
-#ifdef __LP64__
-static __inline __uint64_t
-__bitcount64(__uint64_t _x)
-{
-
-	_x = (_x & 0x5555555555555555) + ((_x & 0xaaaaaaaaaaaaaaaa) >> 1);
-	_x = (_x & 0x3333333333333333) + ((_x & 0xcccccccccccccccc) >> 2);
-	_x = (_x + (_x >> 4)) & 0x0f0f0f0f0f0f0f0f;
-	_x = (_x + (_x >> 8));
-	_x = (_x + (_x >> 16));
-	_x = (_x + (_x >> 32)) & 0x000000ff;
-	return (_x);
-}
-
-#define	__bitcountl(x)	__bitcount64((unsigned long)(x))
-#else
-static __inline __uint64_t
-__bitcount64(__uint64_t _x)
-{
-
-	return (__bitcount32(_x >> 32) + __bitcount32(_x));
-}
-
-#define	__bitcountl(x)	__bitcount32((unsigned long)(x))
-#endif
-#define	__bitcount(x)	__bitcount32((unsigned int)(x))
+#ifndef FALSE
+#define	FALSE	0
 #endif
 
-#if __BSD_VISIBLE
+#endif /* _KERNEL || _STANDALONE */
 
-//#include <sys/select.h>
+#if defined(_KERNEL) || defined(_LIBC) || defined(_KMEMUSER)
+/*
+ * semctl(2)'s argument structure.  This is here for the benefit of
+ * <sys/syscallargs.h>.  It is not in the user's namespace in SUSv2.
+ * The SUSv2 semctl(2) takes variable arguments.
+ */
+union __semun {
+	int		val;		/* value for SETVAL */
+	struct semid_ds	*buf;		/* buffer for IPC_STAT & IPC_SET */
+	unsigned short	*array;		/* array for GETALL & SETALL */
+};
+#include <sys/stdint.h>
+#endif /* _KERNEL || _LIBC || _KMEMUSER */
 
 /*
- * The major and minor numbers are encoded in dev_t as MMMmmmMm (where
- * letters correspond to bytes).  The encoding of the lower 4 bytes is
- * constrained by compatibility with 16-bit and 32-bit dev_t's.  The
- * encoding of of the upper 4 bytes is the least unnatural one consistent
- * with this and other constraints.  Also, the decoding of the m bytes by
- * minor() is unnatural to maximize compatibility subject to not discarding
- * bits.  The upper m byte is shifted into the position of the lower M byte
- * instead of shifting 3 upper m bytes to close the gap.  Compatibility for
- * minor() is achieved iff the upper m byte is 0.
+ * These belong in unistd.h, but are placed here too to ensure that
+ * long arguments will be promoted to off_t if the program fails to
+ * include that header or explicitly cast them to off_t.
  */
-#define	major(d)	__major(d)
-static __inline int
-__major(dev_t _d)
-{
-	return (((_d >> 32) & 0xffffff00) | ((_d >> 8) & 0xff));
-}
-#define	minor(d)	__minor(d)
-static __inline int
-__minor(dev_t _d)
-{
-	return (((_d >> 24) & 0xff00) | (_d & 0xffff00ff));
-}
-#define	makedev(M, m)	__makedev((M), (m))
-static __inline dev_t
-__makedev(int _Major, int _Minor)
-{
-	return (((dev_t)(_Major & 0xffffff00) << 32) | ((_Major & 0xff) << 8) |
-	    ((dev_t)(_Minor & 0xff00) << 24) | (_Minor & 0xffff00ff));
-}
-
-/*
- * These declarations belong elsewhere, but are repeated here and in
- * <stdio.h> to give broken programs a better chance of working with
- * 64-bit off_t's.
- */
+#if defined(_NETBSD_SOURCE)
+#ifndef __OFF_T_SYSCALLS_DECLARED
+#define __OFF_T_SYSCALLS_DECLARED
 #ifndef _KERNEL
+#include <sys/cdefs.h>
 __BEGIN_DECLS
-#ifndef _FTRUNCATE_DECLARED
-#define	_FTRUNCATE_DECLARED
-int	 ftruncate(int, off_t);
-#endif
-#ifndef _LSEEK_DECLARED
-#define	_LSEEK_DECLARED
 off_t	 lseek(int, off_t, int);
-#endif
-#ifndef _MMAP_DECLARED
-#define	_MMAP_DECLARED
-void *	 mmap(void *, size_t, int, int, int, off_t);
-#endif
-#ifndef _TRUNCATE_DECLARED
-#define	_TRUNCATE_DECLARED
+int	 ftruncate(int, off_t);
 int	 truncate(const char *, off_t);
-#endif
 __END_DECLS
 #endif /* !_KERNEL */
+#endif /* __OFF_T_SYSCALLS_DECLARED */
+#endif /* defined(_NETBSD_SOURCE) */
 
-#endif /* __BSD_VISIBLE */
+#if defined(_NETBSD_SOURCE)
+/* Major, minor numbers, dev_t's. */
+typedef int32_t __devmajor_t, __devminor_t;
+#define devmajor_t __devmajor_t
+#define devminor_t __devminor_t
+#define NODEVMAJOR (-1)
+#define	major(x)	((devmajor_t)(((uint32_t)(x) & 0x000fff00) >>  8))
+#define	minor(x)	((devminor_t)((((uint32_t)(x) & 0xfff00000) >> 12) | \
+				   (((uint32_t)(x) & 0x000000ff) >>  0)))
+#define	makedev(x,y)	((dev_t)((((dev_t)(x) <<  8) & 0x000fff00U) | \
+				 (((dev_t)(y) << 12) & 0xfff00000U) | \
+				 (((dev_t)(y) <<  0) & 0x000000ffU)))
+#endif
 
-#include <sys/_null.h>
+#ifdef	_BSD_CLOCK_T_
+typedef	_BSD_CLOCK_T_		clock_t;
+#undef	_BSD_CLOCK_T_
+#endif
+
+#ifdef	_BSD_PTRDIFF_T_
+typedef	_BSD_PTRDIFF_T_		ptrdiff_t;
+#undef	_BSD_PTRDIFF_T_
+#endif
+
+#ifdef	_BSD_SIZE_T_
+typedef	_BSD_SIZE_T_		size_t;
+#define _SIZE_T
+#undef	_BSD_SIZE_T_
+#endif
+
+#ifdef	_BSD_SSIZE_T_
+typedef	_BSD_SSIZE_T_		ssize_t;
+#undef	_BSD_SSIZE_T_
+#endif
+
+#ifdef	_BSD_TIME_T_
+typedef	_BSD_TIME_T_		time_t;
+#undef	_BSD_TIME_T_
+#endif
+
+#ifdef	_BSD_CLOCKID_T_
+typedef	_BSD_CLOCKID_T_		clockid_t;
+#undef	_BSD_CLOCKID_T_
+#endif
+
+#ifdef	_BSD_TIMER_T_
+typedef	_BSD_TIMER_T_		timer_t;
+#undef	_BSD_TIMER_T_
+#endif
+
+#ifdef	_BSD_SUSECONDS_T_
+typedef	_BSD_SUSECONDS_T_	suseconds_t;
+#undef	_BSD_SUSECONDS_T_
+#endif
+
+#ifdef	_BSD_USECONDS_T_
+typedef	_BSD_USECONDS_T_	useconds_t;
+#undef	_BSD_USECONDS_T_
+#endif
+
+#ifdef _NETBSD_SOURCE
+#include <sys/fd_set.h>
+
+#define	NBBY			8
+
+typedef struct kauth_cred *kauth_cred_t;
+
+typedef int pri_t;
+
+#endif
+
+#if defined(__STDC__) && (defined(_KERNEL) || defined(_KMEMUSER))
+/*
+ * Forward structure declarations for function prototypes.  We include the
+ * common structures that cross subsystem boundaries here; others are mostly
+ * used in the same place that the structure is defined.
+ */
+struct	lwp;
+typedef struct lwp lwp_t;
+struct	__ucontext;
+struct	proc;
+typedef struct proc proc_t;
+struct	pgrp;
+struct	rusage;
+struct	file;
+typedef struct file file_t;
+struct	buf;
+typedef struct buf buf_t;
+struct	tty;
+struct	uio;
+#endif
+
+#if defined(_KERNEL) || defined(_STANDALONE)
+#define SET(t, f)	((t) |= (f))
+#define	ISSET(t, f)	((t) & (f))
+#define	CLR(t, f)	((t) &= ~(f))
+#endif
+
+#if !defined(_KERNEL) && !defined(_STANDALONE)
+#if (_POSIX_C_SOURCE - 0L) >= 199506L || (_XOPEN_SOURCE - 0) >= 500 || \
+    defined(_NETBSD_SOURCE)
+#include <pthread_types.h>
+#endif
+#endif
+
 #endif /* !_SYS_TYPES_H_ */

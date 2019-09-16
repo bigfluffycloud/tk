@@ -1,11 +1,11 @@
-/*	$NetBSD: stdint.h,v 1.8 2018/11/06 16:26:44 maya Exp $	*/
+/*	$NetBSD: common_ansi.h,v 1.1 2014/08/19 07:27:31 matt Exp $	*/
 
 /*-
- * Copyright (c) 2001, 2004 The NetBSD Foundation, Inc.
+ * Copyright (c) 2014 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
- * by Klaus Klein.
+ * by Matt Thomas of 3am Software Foundry.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -29,74 +29,48 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SYS_STDINT_H_
-#define _SYS_STDINT_H_
+#ifndef _SYS_COMMON_ANSI_H_
+#define _SYS_COMMON_ANSI_H_
 
 #include <sys/cdefs.h>
+
 #include <machine/int_types.h>
 
-#ifndef	_BSD_INT8_T_
-typedef	__int8_t	int8_t;
-#define	_BSD_INT8_T_
+#if !defined(__PTRDIFF_TYPE__)
+#error __PTRDIFF_TYPE__ not present
 #endif
 
-#ifndef	_BSD_UINT8_T_
-typedef	__uint8_t	uint8_t;
-#define	_BSD_UINT8_T_
+#if !defined(__SIZE_TYPE__)
+#error __SIZE_TYPE__ not present
 #endif
 
-#ifndef	_BSD_INT16_T_
-typedef	__int16_t	int16_t;
-#define	_BSD_INT16_T_
+#if !defined(__WCHAR_TYPE__)
+#error __WCHAR_TYPE__ not present
 #endif
 
-#ifndef	_BSD_UINT16_T_
-typedef	__uint16_t	uint16_t;
-#define	_BSD_UINT16_T_
+#if !defined(__WINT_TYPE__)
+#error __WINT_TYPE__ not present
 #endif
 
-#ifndef	_BSD_INT32_T_
-typedef	__int32_t	int32_t;
-#define	_BSD_INT32_T_
-#endif
+/*
+ * Types which are fundamental to the implementation and may appear in
+ * more than one standard header are defined here.  Standard headers
+ * then use:
+ *	#ifdef	_BSD_SIZE_T_
+ *	typedef	_BSD_SIZE_T_ size_t;
+ *	#undef	_BSD_SIZE_T_
+ *	#endif
+ */
+#define	_BSD_CLOCK_T_		unsigned int	/* clock() */
+#define	_BSD_PTRDIFF_T_		__PTRDIFF_TYPE__ /* ptr1 - ptr2 */
+#define	_BSD_SSIZE_T_		__PTRDIFF_TYPE__ /* byte count or error */
+#define	_BSD_SIZE_T_		__SIZE_TYPE__	/* sizeof() */
+#define	_BSD_TIME_T_		__int64_t	/* time() */
+#define	_BSD_CLOCKID_T_		int		/* clockid_t */
+#define	_BSD_TIMER_T_		int		/* timer_t */
+#define	_BSD_SUSECONDS_T_	int		/* suseconds_t */
+#define	_BSD_USECONDS_T_	unsigned int	/* useconds_t */
+#define	_BSD_WCHAR_T_		__WCHAR_TYPE__	/* wchar_t */
+#define	_BSD_WINT_T_		__WINT_TYPE__	/* wint_t */
 
-#ifndef	_BSD_UINT32_T_
-typedef	__uint32_t	uint32_t;
-#define	_BSD_UINT32_T_
-#endif
-
-#ifndef	_BSD_INT64_T_
-typedef	__int64_t	int64_t;
-#define	_BSD_INT64_T_
-#endif
-
-#ifndef	_BSD_UINT64_T_
-typedef	__uint64_t	uint64_t;
-#define	_BSD_UINT64_T_
-#endif
-
-#ifndef	_BSD_INTPTR_T_
-typedef	__intptr_t	intptr_t;
-#define	_BSD_INTPTR_T_
-#endif
-
-#ifndef	_BSD_UINTPTR_T_
-typedef	__uintptr_t	uintptr_t;
-#define	_BSD_UINTPTR_T_
-#endif
-
-#include <machine/int_mwgwtypes.h>
-
-#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS) || \
-    (__cplusplus >= 201103L)
-#include <machine/int_limits.h>
-#endif
-
-#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS) || \
-    (__cplusplus >= 201103L)
-#include <machine/int_const.h>
-#endif
-
-#include <machine/wchar_limits.h>
-
-#endif /* !_SYS_STDINT_H_ */
+#endif	/* _SYS_COMMON_ANSI_H_ */

@@ -1,3 +1,4 @@
+#include <sys/stddef.h>
 #include <sys/types.h>
 #include <ipc/msg.h>
 #include <core/timer.h>

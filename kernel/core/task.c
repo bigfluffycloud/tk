@@ -13,11 +13,7 @@ static void otherMain(void) {
 }
  
 void task_init(void) {
-    md_task_init();
-    // Get EFLAGS and CR3
-    asm volatile("movl %%cr3, %%eax; movl %%eax, %0;":"=m"(mainTask.regs.cr3)::"%eax");
-    asm volatile("pushfl; movl (%%esp), %%eax; movl %%eax, %0; popfl;":"=m"(mainTask.regs.eflags)::"%eax");
- 
+    md_task_init(&mainTask);
     task_create(&otherTask, otherMain, mainTask.regs.eflags, (uint32_t*)mainTask.regs.cr3);
     mainTask.next = &otherTask;
     otherTask.next = &mainTask;

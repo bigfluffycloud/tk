@@ -1,8 +1,11 @@
+/*	$NetBSD: common_int_const.h,v 1.1 2014/07/25 21:43:13 joerg Exp $	*/
+
 /*-
- * SPDX-License-Identifier: BSD-2-Clause-FreeBSD
- *
- * Copyright (c) 2005 Scott Long
+ * Copyright (c) 2014 The NetBSD Foundation, Inc.
  * All rights reserved.
+ *
+ * This code is derived from software contributed to The NetBSD Foundation
+ * by Joerg Sonnenberger.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -26,11 +29,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* $FreeBSD$ */
+#ifndef _SYS_COMMON_INT_CONST_H_
+#define _SYS_COMMON_INT_CONST_H_
 
-#ifndef _I386_BUS_DMA_H_
-#define _I386_BUS_DMA_H_
+#ifndef __INTMAX_C_SUFFIX__
+#error Your compiler does not provide inter constant suffix macros.
+#endif
 
-#include <x86/bus_dma.h> 
+#define __int_join_(c,suffix) c ## suffix
+#define __int_join(c,suffix) __int_join_(c,suffix)
+/*
+ * 7.18.4 Macros for integer constants
+ */
 
-#endif /* _I386_BUS_DMA_H_ */
+/* 7.18.4.1 Macros for minimum-width integer constants */
+
+#define	INT8_C(c)	__int_join(c, __INT8_C_SUFFIX__)
+#define	INT16_C(c)	__int_join(c, __INT16_C_SUFFIX__)
+#define	INT32_C(c)	__int_join(c, __INT32_C_SUFFIX__)
+#define	INT64_C(c)	__int_join(c, __INT64_C_SUFFIX__)
+
+#define	UINT8_C(c)	__int_join(c, __UINT8_C_SUFFIX__)
+#define	UINT16_C(c)	__int_join(c, __UINT16_C_SUFFIX__)
+#define	UINT32_C(c)	__int_join(c, __UINT32_C_SUFFIX__)
+#define	UINT64_C(c)	__int_join(c, __UINT64_C_SUFFIX__)
+
+/* 7.18.4.2 Macros for greatest-width integer constants */
+
+#define	INTMAX_C(c)	__int_join(c, __INTMAX_C_SUFFIX__)
+#define	UINTMAX_C(c)	__int_join(c, __UINTMAX_C_SUFFIX__)
+
+#endif /* _SYS_COMMON_INT_CONST_H_ */

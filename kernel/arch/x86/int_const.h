@@ -1,7 +1,7 @@
-/*	$NetBSD: stdint.h,v 1.8 2018/11/06 16:26:44 maya Exp $	*/
+/*	$NetBSD: int_const.h,v 1.4 2014/07/25 21:43:13 joerg Exp $	*/
 
 /*-
- * Copyright (c) 2001, 2004 The NetBSD Foundation, Inc.
+ * Copyright (c) 2001 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
@@ -29,74 +29,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SYS_STDINT_H_
-#define _SYS_STDINT_H_
+#ifndef _I386_INT_CONST_H_
+#define _I386_INT_CONST_H_
 
-#include <sys/cdefs.h>
-#include <machine/int_types.h>
+#ifdef __INTMAX_C_SUFFIX__
+#include <sys/common_int_const.h>
+#else
 
-#ifndef	_BSD_INT8_T_
-typedef	__int8_t	int8_t;
-#define	_BSD_INT8_T_
+/*
+ * 7.18.4 Macros for integer constants
+ */
+
+/* 7.18.4.1 Macros for minimum-width integer constants */
+
+#define	INT8_C(c)	c
+#define	INT16_C(c)	c
+#define	INT32_C(c)	c
+#define	INT64_C(c)	c ## LL
+
+#define	UINT8_C(c)	c
+#define	UINT16_C(c)	c
+#define	UINT32_C(c)	c ## U
+#define	UINT64_C(c)	c ## ULL
+
+/* 7.18.4.2 Macros for greatest-width integer constants */
+
+#define	INTMAX_C(c)	c ## LL
+#define	UINTMAX_C(c)	c ## ULL
+
 #endif
 
-#ifndef	_BSD_UINT8_T_
-typedef	__uint8_t	uint8_t;
-#define	_BSD_UINT8_T_
-#endif
-
-#ifndef	_BSD_INT16_T_
-typedef	__int16_t	int16_t;
-#define	_BSD_INT16_T_
-#endif
-
-#ifndef	_BSD_UINT16_T_
-typedef	__uint16_t	uint16_t;
-#define	_BSD_UINT16_T_
-#endif
-
-#ifndef	_BSD_INT32_T_
-typedef	__int32_t	int32_t;
-#define	_BSD_INT32_T_
-#endif
-
-#ifndef	_BSD_UINT32_T_
-typedef	__uint32_t	uint32_t;
-#define	_BSD_UINT32_T_
-#endif
-
-#ifndef	_BSD_INT64_T_
-typedef	__int64_t	int64_t;
-#define	_BSD_INT64_T_
-#endif
-
-#ifndef	_BSD_UINT64_T_
-typedef	__uint64_t	uint64_t;
-#define	_BSD_UINT64_T_
-#endif
-
-#ifndef	_BSD_INTPTR_T_
-typedef	__intptr_t	intptr_t;
-#define	_BSD_INTPTR_T_
-#endif
-
-#ifndef	_BSD_UINTPTR_T_
-typedef	__uintptr_t	uintptr_t;
-#define	_BSD_UINTPTR_T_
-#endif
-
-#include <machine/int_mwgwtypes.h>
-
-#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS) || \
-    (__cplusplus >= 201103L)
-#include <machine/int_limits.h>
-#endif
-
-#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS) || \
-    (__cplusplus >= 201103L)
-#include <machine/int_const.h>
-#endif
-
-#include <machine/wchar_limits.h>
-
-#endif /* !_SYS_STDINT_H_ */
+#endif /* !_I386_INT_CONST_H_ */

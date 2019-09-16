@@ -53,7 +53,6 @@ int	md_init(void) {
 //   md_pae_init();
    md_vmm_init();
    md_rtc_timer_init();
-   md_task_init();
 //  __asm__("int $0x80");
   return 0;
 }

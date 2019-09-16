@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/stddef.h>
 #include <sys/limits.h>
 #include <sys/stdbool.h>
 #include <sys/limits.h>
@@ -23,7 +24,7 @@ int printf(const char* restrict format, ...) {
 	int written = 0;
  
 	while (*format != '\0') {
-		size_t maxrem = __INT_MAX - written;
+		size_t maxrem = INT_MAX - written;
  
 		if (format[0] != '%' || format[1] == '%') {
 			if (format[0] == '%')

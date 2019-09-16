@@ -1,11 +1,11 @@
-/*	$NetBSD: stdint.h,v 1.8 2018/11/06 16:26:44 maya Exp $	*/
+/*	$NetBSD: common_int_mwgwtypes.h,v 1.1 2014/07/25 21:43:13 joerg Exp $	*/
 
 /*-
- * Copyright (c) 2001, 2004 The NetBSD Foundation, Inc.
+ * Copyright (c) 2014 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
- * by Klaus Klein.
+ * by Joerg Sonnenberger.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -29,74 +29,41 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _SYS_STDINT_H_
-#define _SYS_STDINT_H_
+#ifndef _SYS_COMMON_INT_MWGWTYPES_H_
+#define _SYS_COMMON_INT_MWGWTYPES_H_
 
-#include <sys/cdefs.h>
-#include <machine/int_types.h>
-
-#ifndef	_BSD_INT8_T_
-typedef	__int8_t	int8_t;
-#define	_BSD_INT8_T_
+#ifndef __UINT_FAST64_TYPE__
+#error Your compiler does not provide min/fast width type macros.
 #endif
 
-#ifndef	_BSD_UINT8_T_
-typedef	__uint8_t	uint8_t;
-#define	_BSD_UINT8_T_
-#endif
+/*
+ * 7.18.1 Integer types
+ */
 
-#ifndef	_BSD_INT16_T_
-typedef	__int16_t	int16_t;
-#define	_BSD_INT16_T_
-#endif
+/* 7.18.1.2 Minimum-width integer types */
 
-#ifndef	_BSD_UINT16_T_
-typedef	__uint16_t	uint16_t;
-#define	_BSD_UINT16_T_
-#endif
+typedef	__INT_LEAST8_TYPE__		  int_least8_t;
+typedef	__UINT_LEAST8_TYPE__		 uint_least8_t;
+typedef	__INT_LEAST16_TYPE__		 int_least16_t;
+typedef	__UINT_LEAST16_TYPE__		uint_least16_t;
+typedef	__INT_LEAST32_TYPE__		 int_least32_t;
+typedef	__UINT_LEAST32_TYPE__		uint_least32_t;
+typedef	__INT_LEAST64_TYPE__		 int_least64_t;
+typedef	__UINT_LEAST64_TYPE__		uint_least64_t;
 
-#ifndef	_BSD_INT32_T_
-typedef	__int32_t	int32_t;
-#define	_BSD_INT32_T_
-#endif
+/* 7.18.1.3 Fastest minimum-width integer types */
+typedef	__INT_FAST8_TYPE__		   int_fast8_t;
+typedef	__UINT_FAST8_TYPE__		  uint_fast8_t;
+typedef	__INT_FAST16_TYPE__		  int_fast16_t;
+typedef	__UINT_FAST16_TYPE__		 uint_fast16_t;
+typedef	__INT_FAST32_TYPE__		  int_fast32_t;
+typedef	__UINT_FAST32_TYPE__		 uint_fast32_t;
+typedef	__INT_FAST64_TYPE__		  int_fast64_t;
+typedef	__UINT_FAST64_TYPE__		 uint_fast64_t;
 
-#ifndef	_BSD_UINT32_T_
-typedef	__uint32_t	uint32_t;
-#define	_BSD_UINT32_T_
-#endif
+/* 7.18.1.5 Greatest-width integer types */
 
-#ifndef	_BSD_INT64_T_
-typedef	__int64_t	int64_t;
-#define	_BSD_INT64_T_
-#endif
+typedef	__INTMAX_TYPE__			      intmax_t;
+typedef	__UINTMAX_TYPE__		     uintmax_t;
 
-#ifndef	_BSD_UINT64_T_
-typedef	__uint64_t	uint64_t;
-#define	_BSD_UINT64_T_
-#endif
-
-#ifndef	_BSD_INTPTR_T_
-typedef	__intptr_t	intptr_t;
-#define	_BSD_INTPTR_T_
-#endif
-
-#ifndef	_BSD_UINTPTR_T_
-typedef	__uintptr_t	uintptr_t;
-#define	_BSD_UINTPTR_T_
-#endif
-
-#include <machine/int_mwgwtypes.h>
-
-#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS) || \
-    (__cplusplus >= 201103L)
-#include <machine/int_limits.h>
-#endif
-
-#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS) || \
-    (__cplusplus >= 201103L)
-#include <machine/int_const.h>
-#endif
-
-#include <machine/wchar_limits.h>
-
-#endif /* !_SYS_STDINT_H_ */
+#endif /* _SYS_COMMON_INT_MWGWTYPES_H_ */

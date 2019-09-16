@@ -1,6 +1,6 @@
-/*-
- * SPDX-License-Identifier: BSD-3-Clause
- *
+/*	$NetBSD: limits.h,v 1.40 2016/08/04 06:43:43 christos Exp $	*/
+
+/*
  * Copyright (c) 1988, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
@@ -28,75 +28,141 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $FreeBSD$
+ *	@(#)limits.h	8.2 (Berkeley) 1/4/94
  */
 
-#ifndef _SYS_LIMITS_H_
-#define	_SYS_LIMITS_H_
+#ifndef _LIMITS_H_
+#define	_LIMITS_H_
 
-#include <sys/cdefs.h>
-#include <machine/_limits.h>
+#include <sys/featuretest.h>
 
-#define	CHAR_BIT	__CHAR_BIT	/* number of bits in a char */
+#if defined(_POSIX_C_SOURCE) || defined(_XOPEN_SOURCE) || \
+    defined(_NETBSD_SOURCE)
+#define	_POSIX_AIO_LISTIO_MAX	2
+#define	_POSIX_AIO_MAX		1
+#define	_POSIX_ARG_MAX		4096
+#define	_POSIX_CHILD_MAX	25
+#define	_POSIX_HOST_NAME_MAX	255
+#define	_POSIX_LINK_MAX		8
+#define	_POSIX_LOGIN_NAME_MAX	9
+#define	_POSIX_MAX_CANON	255
+#define	_POSIX_MAX_INPUT	255
+#define	_POSIX_MQ_OPEN_MAX	8
+#define	_POSIX_MQ_PRIO_MAX	32
+#define	_POSIX_NAME_MAX		14
+#define	_POSIX_NGROUPS_MAX	8
+#define	_POSIX_OPEN_MAX		20
+#define	_POSIX_PATH_MAX		256
+#define	_POSIX_PIPE_BUF		512
+#define	_POSIX_RE_DUP_MAX	255
+#define	_POSIX_SSIZE_MAX	32767
+#define	_POSIX_STREAM_MAX	8
+#define	_POSIX_SYMLINK_MAX	255
+#define	_POSIX_SYMLOOP_MAX	8
 
-#define	SCHAR_MAX	__SCHAR_MAX	/* max value for a signed char */
-#define	SCHAR_MIN	__SCHAR_MIN	/* min value for a signed char */
+/*
+ * We have not implemented these yet
+ *
+ * _POSIX_THREAD_ATTR_STACKADDR
+ * _POSIX_THREAD_ATTR_STACKSIZE
+ * _POSIX_THREAD_CPUTIME
+ * _POSIX_THREAD_PRIORITY_SCHEDULING
+ * _POSIX_THREAD_PRIO_INHERIT
+ * _POSIX_THREAD_PRIO_PROTECT
+ * _POSIX_THREAD_PROCESS_SHARED
+ * _POSIX_THREAD_SAFE_FUNCTIONS
+ * _POSIX_THREAD_SPORADIC_SERVER
+ */
 
-#define	UCHAR_MAX	__UCHAR_MAX	/* max value for an unsigned char */
+/*
+ * The following 3 are defined in 
+ * Open Group Base Specifications Issue 7
+ */
+#define	_POSIX_THREAD_DESTRUCTOR_ITERATIONS	4
+#define	_POSIX_THREAD_KEYS_MAX			128
+#define	_POSIX_THREAD_THREADS_MAX		64
+
+/*
+ * These are the correct names, defined in terms of the above
+ * except for PTHREAD_KEYS_MAX which is bigger than standard 
+ * mandated minimum value _POSIX_THREAD_KEYS_MAX.
+ */
+#define	PTHREAD_DESTRUCTOR_ITERATIONS 	_POSIX_THREAD_DESTRUCTOR_ITERATIONS
+#define	PTHREAD_KEYS_MAX		256
+/* Not yet: PTHREAD_STACK_MIN */
+#define	PTHREAD_THREADS_MAX		_POSIX_THREAD_THREADS_MAX
+
+#define	_POSIX_TIMER_MAX	32
+#define	_POSIX_SEM_NSEMS_MAX	256
+#define	_POSIX_SIGQUEUE_MAX	32
+#define	_POSIX_REALTIME_SIGNALS	200112L
+#define	_POSIX_DELAYTIMER_MAX	32
+#define	_POSIX_TTY_NAME_MAX	9
+#define	_POSIX_TZNAME_MAX	6
+
+#define	_POSIX2_BC_BASE_MAX	99
+#define	_POSIX2_BC_DIM_MAX	2048
+#define	_POSIX2_BC_SCALE_MAX	99
+#define	_POSIX2_BC_STRING_MAX	1000
+#define	_POSIX2_CHARCLASS_NAME_MAX	14
+#define	_POSIX2_COLL_WEIGHTS_MAX	2
+#define	_POSIX2_EXPR_NEST_MAX	32
+#define	_POSIX2_LINE_MAX	2048
+#define	_POSIX2_RE_DUP_MAX	255
+
+/*
+ * X/Open CAE Specifications,
+ * adopted in IEEE Std 1003.1-2001 XSI.
+ */
+#if (_POSIX_C_SOURCE - 0) >= 200112L || defined(_XOPEN_SOURCE) || \
+    defined(_NETBSD_SOURCE)
+#define	_XOPEN_IOV_MAX		16
+#define	_XOPEN_NAME_MAX		256
+#define	_XOPEN_PATH_MAX		1024
+
+#define PASS_MAX		128		/* Legacy */
+
+#define CHARCLASS_NAME_MAX	14
+#define NL_ARGMAX		9
+#define NL_LANGMAX		14
+#define NL_MSGMAX		32767
+#define NL_NMAX			1
+#define NL_SETMAX		255
+#define NL_TEXTMAX		2048
+
+	/* IEEE Std 1003.1-2001 TSF */
+#define	_GETGR_R_SIZE_MAX	1024
+#define	_GETPW_R_SIZE_MAX	1024
+
+/* Always ensure that this is consistent with <stdio.h> */
+#ifndef TMP_MAX
+#define TMP_MAX			308915776	/* Legacy */
+#endif
+#endif /* _POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE || _NETBSD_SOURCE */
+
+#endif /* _POSIX_C_SOURCE || _XOPEN_SOURCE || _NETBSD_SOURCE */
+
+#define MB_LEN_MAX		32	/* Allow ISO/IEC 2022 */
+
+/*
+ * X/Open Extended API set 2 (a.k.a. C063)
+ * This hides unimplemented functions from GNU configure until
+ * we are done implementing them.
+ */
+#if !defined(_INCOMPLETE_XOPEN_C063)
+#define __stub_fexecve
+#endif
+
+#include <machine/limits.h>
 
 #ifdef __CHAR_UNSIGNED__
-#define	CHAR_MAX	UCHAR_MAX	/* max value for a char */
-#define	CHAR_MIN	0		/* min value for a char */
+# define CHAR_MIN     0
+# define CHAR_MAX     UCHAR_MAX
 #else
-#define	CHAR_MAX	SCHAR_MAX
-#define	CHAR_MIN	SCHAR_MIN
+# define CHAR_MIN     SCHAR_MIN
+# define CHAR_MAX     SCHAR_MAX
 #endif
 
-#define	USHRT_MAX	__USHRT_MAX	/* max value for an unsigned short */
-#define	SHRT_MAX	__SHRT_MAX	/* max value for a short */
-#define	SHRT_MIN	__SHRT_MIN	/* min value for a short */
+#include <sys/syslimits.h>
 
-#define	UINT_MAX	__UINT_MAX	/* max value for an unsigned int */
-#define	INT_MAX		__INT_MAX	/* max value for an int */
-#define	INT_MIN		__INT_MIN	/* min value for an int */
-
-#define	ULONG_MAX	__ULONG_MAX	/* max for an unsigned long */
-#define	LONG_MAX	__LONG_MAX	/* max for a long */
-#define	LONG_MIN	__LONG_MIN	/* min for a long */
-
-#ifdef __LONG_LONG_SUPPORTED
-#define	ULLONG_MAX	__ULLONG_MAX	/* max for an unsigned long long */
-#define	LLONG_MAX	__LLONG_MAX	/* max for a long long */
-#define	LLONG_MIN	__LLONG_MIN	/* min for a long long */
-#endif
-
-#if __POSIX_VISIBLE || __XSI_VISIBLE
-#define	SSIZE_MAX	__SSIZE_MAX	/* max value for an ssize_t */
-#endif
-
-#if __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE
-#define	SIZE_T_MAX	__SIZE_T_MAX	/* max value for a size_t */
-
-#define	OFF_MAX		__OFF_MAX	/* max value for an off_t */
-#define	OFF_MIN		__OFF_MIN	/* min value for an off_t */
-#endif
-
-#if __BSD_VISIBLE
-#define	GID_MAX		UINT_MAX	/* max value for a gid_t */
-#define	UID_MAX		UINT_MAX	/* max value for a uid_t */
-
-#define	UQUAD_MAX	(__UQUAD_MAX)	/* max value for a uquad_t */
-#define	QUAD_MAX	(__QUAD_MAX)	/* max value for a quad_t */
-#define	QUAD_MIN	(__QUAD_MIN)	/* min value for a quad_t */
-#endif
-
-#if __XSI_VISIBLE || __POSIX_VISIBLE >= 200809
-#define	LONG_BIT	__LONG_BIT
-#define	WORD_BIT	__WORD_BIT
-#endif
-
-#if __POSIX_VISIBLE
-#define	MQ_PRIO_MAX	64
-#endif
-
-#endif /* !_SYS_LIMITS_H_ */
+#endif /* !_LIMITS_H_ */
