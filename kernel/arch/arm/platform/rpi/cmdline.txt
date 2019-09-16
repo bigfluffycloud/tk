@@ -1,0 +1,2 @@
+# arg2 is the size of initramfs file in bytes.
+initrd=0xa00000,%%initrd_size%%

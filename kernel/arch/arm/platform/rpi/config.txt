@@ -1,0 +1,53 @@
+[pi2]
+#
+
+[pi3]
+#
+
+[pi4]
+#
+
+[all]
+kernel_old=1
+disable_commandline_tags=1
+disable_overscan=1
+framebuffer_swap=0
+
+# force audio over hdmi
+hdmi_drive=2
+disable_audio_dither=1
+
+gpu_mem_256=16
+gpu_mem_512=32
+gpu_mem_1024=128
+gpu_mem=128
+cec_osd_name=tacopi
+
+# ensure hdmi is default and lcd is secondary
+display_default_lcd=0
+disable_camera_led=1
+cmdline=cmdline.txt
+
+# 64bit
+#kernel_address=0x80000
+# 32bit
+kernel_address=0x8000
+# 0x0 start :(
+#kernel_old=1
+
+#ramfsfile=initramfs.gz
+#ramfsaddr=0x00a00000
+#initramfs initramfs.gz 0x00800000
+#initramfs initramfs.gz 0x00a00000
+
+###
+init_uart_baud=115200
+init_uart_clock=3000000
+init_emmc_clock=100000000
+boot_delay=1
+boot_delay_ms=0
+avoid_safe_mode=0
+disable_splash=0
+
+# source 1.2A instead of 0.6A
+#max_usb_current=1
