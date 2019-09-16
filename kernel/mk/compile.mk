@@ -1,3 +1,8 @@
+kernel_cc := ${CC_PATH}${tc_prefix}gcc
+kernel_ld := ${CC_PATH}${tc_prefix}ld
+kernel_as := ${CC_PATH}${tc_prefix}as
+kernel_nm := ${CC_PATH}${tc_prefix}nm
+
 kern_cflags += -I. -std=gnu99 -O2
 kern_cflags += -nostdinc -ffreestanding -nostdlib -fno-pie -fno-pic
 kern_cflags += -DTK_VERSION="\"${VERSION}\"" -D_KERNEL

@@ -1,6 +1,7 @@
 //
 // Here we implement common console code, shared between all console types...
 //
+#include <sys/stddef.h>
 #include <sys/stdint.h>
 #include <core/cons.h>
 #define SSFN_NOIMPLEMENTATION               /* don't include the normal renderer implementation */

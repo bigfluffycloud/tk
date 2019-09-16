@@ -1,8 +1,4 @@
 #CC_PATH=/home/joseph/proj/toolchain/bin/
-kernel_cc := ${CC_PATH}${tc_prefix}gcc
-kernel_ld := ${CC_PATH}${tc_prefix}ld
-kernel_as := ${CC_PATH}${tc_prefix}as
-kernel_nm := ${CC_PATH}${tc_prefix}nm
 
 VERSION := "0.2.0-lite1"
 

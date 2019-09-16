@@ -1,4 +1,4 @@
-tc_prefix=i686-elf
+#tc_prefix=i686-elf-
 
 ifeq (${CF_ARCH},x86)
 CPU_X86=1
