@@ -31,11 +31,16 @@ void md_pit_tick(void) {
 
    // try to switch tasks
    if (!task) {
+#if	defined(CPU_X86)
       asm volatile("add $0x1c, %esp");
       asm volatile("pusha");
       md_pic_eoi(0);
       asm volatile("popa");
       asm volatile("iret");
+#endif
+#if	defined(CPU_X86_64)
+     // XXX: write this
+#endif
    } else {
       // XXX: Run scheduler here
 //      scheduler_run();

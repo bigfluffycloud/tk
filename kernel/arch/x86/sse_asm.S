@@ -1,3 +1,4 @@
+#include <config.h>
 .globl sse_check
 .globl sse_enable
 
@@ -17,6 +18,7 @@ sse_check:
 
 sse_enable:
 	// now enable SSE and the like
+#if	defined(CPU_X86)
 	mov %cr0, %eax
 	and $0xFFFB, %ax	// clear coprocessor emulation CR0.EM
 	or $0x2, %ax		// set coprocessor monitoring  CR0.MP
@@ -25,6 +27,7 @@ sse_enable:
 	or 3 << 9, %ax		// set CR4.OSFXSR and CR4.OSXMMEXCPT at the same time
 	mov %eax, %cr0
 	ret
+#endif	// defined(CPU_X86)
 
 #if	defined(CPU_X86_64)
 enable_avx:

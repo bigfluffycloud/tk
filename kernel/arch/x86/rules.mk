@@ -2,19 +2,21 @@
 
 ifeq (${CF_ARCH},x86)
 CPU_X86=1
+qemu := qemu-system-i386
 endif
 
 ifeq (${CF_ARCH},x64)
 CPU_X86_64=1
+qemu := qemu-system-x86_64
 endif
 
 ifeq (x${CPU_X86_64},x1)
-kern_cflags += -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 
+kern_cflags += -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -DCPU_X86_64
 endif
 
 ifeq (x${CPU_X86},x1)
 kern_asflags += -m32
-kern_cflags += -m32
+kern_cflags += -m32 -DCPU_X86
 linker_script := machine/vmkern.ld
 endif
 

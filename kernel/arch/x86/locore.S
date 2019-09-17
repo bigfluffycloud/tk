@@ -1,4 +1,10 @@
+#include <config.h>
+#if	defined(CPU_X86)
 .code32
+#endif
+#if	defined(CPU_X86_64)
+.code64
+#endif
 	.global md_gdt_flush
 md_gdt_flush:
 	mov	4(%esp), %eax	// get ptr to gdt

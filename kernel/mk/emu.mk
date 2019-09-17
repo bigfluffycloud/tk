@@ -68,7 +68,7 @@ qemu-floppy: floppy
 ifneq (x${qemu_gdb_port}, x)
 	@echo "Using tcp::${qemu_gdb_port} for gdb port"
 endif
-	qemu-system-i386 -fda ${floppy} ${qemu_opts}
+	${qemu} -fda ${floppy} ${qemu_opts}
 
 bochs: floppy bochsrc.txt
 	bochs
@@ -83,9 +83,9 @@ bochsrc.txt:
 	echo "display_library: sdl2" >> bochsrc.txt
 
 qemu-direct: ${vmkern}
-	qemu-system-i386 -kernel ${vmkern} ${qemu_opts}
+	${qemu} -kernel ${vmkern} ${qemu_opts}
 
 qemu-cd: cdrom
-	qemu-system-i386 -cdrom ${cdrom}
+	${qemu} -cdrom ${cdrom}
 	
 qemu: qemu-direct

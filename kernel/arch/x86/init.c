@@ -1,4 +1,5 @@
 #include <sys/types.h>
+#include <machine/debug.h>
 #include <machine/asm.h>
 #include <machine/gdt.h>
 #include <machine/hpet.h>
@@ -14,6 +15,7 @@
 
 int	md_init(void) {
   md_disable_interrupts();		// cli
+  BochsBreak();
   cons_init();				// 
 
   // Print logo

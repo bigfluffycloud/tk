@@ -2,13 +2,18 @@ ifeq (x${CF_ARCH},x)
 $(error Must set CF_ARCH to a valid plaform, see arch/)
 endif
 
-
 # Sub-platform aliases
 ifeq (${CF_ARCH},arm)
 gen_arch := arm
-ifeq (${CF_PLATFORM},rpi)
-sub_arch := rpi
 endif
+
+ifeq (${CF_ARCH},arm64)
+gen_arch := arm
+sub_arch := arm64
+endif
+
+ifeq (${CF_PLATFORM},rpi)
+platform := rpi
 endif
 
 ifeq (${CF_ARCH},x86)
@@ -31,6 +36,7 @@ else
 $(error !!! Invalid platform '${gen_arch}' selected !!!)
 endif
 
+kern_asflags += -I.
 obj_dirs += .obj/${config}/arch/${gen_arch}
 kern_objs += $(foreach x, ${arch_objs}, .obj/${config}/arch/${gen_arch}/${x})
 

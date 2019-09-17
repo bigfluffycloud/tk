@@ -2,6 +2,11 @@
 #kern_cflags +=
 linker_script := machine/vmkern.ld
 tc_prefix := arm-none-eabi-
+ifeq (${sub_arch}, arm64)
+qemu := qemu-system-aarch64
+else
+qemu := qemu-system-arm
+endif
 ############
 
 #arch_objs +=
