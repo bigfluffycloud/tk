@@ -41,7 +41,7 @@ obj_dirs += .obj/${config}/arch/${gen_arch}
 kern_objs += $(foreach x, ${arch_objs}, .obj/${config}/arch/${gen_arch}/${x})
 
 .obj/${config}/arch/${gen_arch}/%.o:arch/${gen_arch}/%.S
-	${kernel_cc} ${kern_asflags} -o $@ -c $<
+	${kernel_as} ${kern_asflags} -o $@ -c $<
 
 .obj/${config}/arch/${gen_arch}/%.o:arch/${gen_arch}/%.c
 	${kernel_cc} ${kern_cflags} -o $@ -c $<

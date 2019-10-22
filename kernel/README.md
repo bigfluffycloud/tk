@@ -15,13 +15,13 @@ forbids their distribution. These files have been replaced with versions
 from FreeBSD and NetBSD where possible
 
 To use this mess, you need some things:
-	gcc
-	binutils
-	grub (grub-legacy)
-	mtools
-	qemu or maybe bochs
-	nasm
-	*patience*
+*	gcc
+*	binutils
+*	grub (grub-legacy)
+*	mtools
+*	qemu or maybe bochs
+*	nasm
+*	*patience*
 
 if you get an error about cannot find /usr/lib/grub/i386-pc/...:
 	Edit .config to point to wherever your grub stages are:
@@ -31,18 +31,12 @@ if you get an error about cannot find /usr/lib/grub/i386-pc/...:
 	Use syslinux ;)
 
 Getting started:
-	Check out
-		git clone git://github.com/bigfluffycloud/tk/
-
-	Build
-		make floppy
-
-	Test
-		make qemu
-
-	Fix stuff ;)
-
-	Submit
+*	Check out:	git clone git://github.com/bigfluffycloud/tk/
+*	Configure:	Edit mk/config.mk and .config (see .config.default)
+*	Build:		make floppy
+*	Test:		make qemu
+*	Fix stuff ;)
+*	Submit patches
 
 
 Since we usually run on virtualization, most filesystems are either in-memory or network.

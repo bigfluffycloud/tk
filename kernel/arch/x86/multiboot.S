@@ -34,6 +34,7 @@ _entry:
 
 	call	entry_multiboot		// entry point for multiboot
 
+// C code has returned, say goodbye...
 	push	$__exit_str
 	call	cons_write
 
@@ -44,7 +45,7 @@ _entry:
 	movw	$0x8ae0, %ax
 	outw	%ax, %dx	// write 0x8ae0 -> 0x8a00
 
-	// Enter low-power state and hang
+	// Enter low-power state and hang the machine
 	call	md_halt
 
 __exit_str:

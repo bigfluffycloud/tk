@@ -15,7 +15,7 @@
 
 int	md_init(void) {
   md_disable_interrupts();		// cli
-  BochsBreak();
+//  BochsBreak();
   cons_init();				// 
 
   // Print logo
@@ -43,18 +43,18 @@ int	md_init(void) {
   // md_lapic_init();
   // md_ioapic_init();
   // Setup global descriptor table
-  md_gdt_init();
-  md_idt_init();
-  md_pit_init();
+//  md_gdt_init();
+//  md_idt_init();
+//  md_pit_init();
   md_enable_interrupts();
   // Calculate speed
-  // lapic_calculate_bus_speed();
-// cons_printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
+//  // lapic_calculate_bus_speed();
+//// cons_printf("calculated speed bus speed: %ul0 hz", lapic_get_bus_speed);
 
-   md_mmu_paging_init();
-//   md_pae_init();
-   md_vmm_init();
-   md_rtc_timer_init();
-//  __asm__("int $0x80");
+//   md_mmu_paging_init();
+////   md_pae_init();
+//   md_vmm_init();
+//   md_rtc_timer_init();
+////  __asm__("int $0x80");
   return 0;
 }

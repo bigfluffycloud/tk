@@ -1,3 +1,7 @@
+qemu_opts += -serial file:serial.log
+
+clean_extra += serial.log
+
 floppy := .obj/${config}/floppy.img
 floppy: ${floppy}
 cdrom := .obj/${config}/cdrom.img

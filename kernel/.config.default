@@ -1,7 +1,7 @@
 # Presently we only support x86, with x86_64 and arm (rpi) in work
 # x86{,_64}
-CF_ARCH=x86
-#CF_ARCH=x64
+#CF_ARCH=x86
+CF_ARCH=x64
 
 #############
 # arm (mostly pi for now)

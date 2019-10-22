@@ -1,3 +1,4 @@
+core_objs += debug.o
 core_objs += init.o
 core_objs += interrupt.o
 core_objs += ssp.o

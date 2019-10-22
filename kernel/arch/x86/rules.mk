@@ -1,13 +1,13 @@
-#tc_prefix=i686-elf-
-
 ifeq (${CF_ARCH},x86)
 CPU_X86=1
 qemu := qemu-system-i386
+tc_prefix=
 endif
 
 ifeq (${CF_ARCH},x64)
 CPU_X86_64=1
 qemu := qemu-system-x86_64
+tc_prefix=x86_64-linux-gnu-
 endif
 
 ifeq (x${CPU_X86_64},x1)
@@ -31,6 +31,7 @@ endif
 arch_objs += multiboot.o
 #arch_objs += cmos.o
 arch_objs += cons_vga.o
+arch_objs += debug.o
 arch_objs += except.o
 arch_objs += font_vga.o
 arch_objs += gdt.o
@@ -63,6 +64,7 @@ arch_objs += vmm.o
 arch_objs += crti.o
 arch_objs += crtn.o
 
+# nasm is evil but..
 .obj/${config}/arch/x86/%.o:arch/x86/%.asm
 	nasm -felf -o $@ $<
 
